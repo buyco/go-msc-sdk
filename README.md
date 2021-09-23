@@ -10,10 +10,6 @@ SDK built to use MSC APIs
 - [ ] Schedules
 - [ ] Booking
 
-## Usage recommandations
-
-- To match _HttpClient_ interface use: https://github.com/imroc/req
-
 ## How to install Go ?
 
 #### Debian / Ubuntu:
@@ -50,11 +46,9 @@ See: https://golang.org/doc/install
 $ go version
 ```
 
-## Install from Makefile
+## Commands:
 
-### Commands:
-
-To list available commands:
+Available commands:
 
 ```bash
 $ make help
@@ -73,5 +67,16 @@ To run tests:
 
 ```bash
 $ go install github.com/joho/godotenv/cmd/godotenv
-$ godotenv -f <env_file> make test
+$ make test
 ```
+
+SDK creation
+
+```
+make generate
+```
+
+## Documentation
+MSC T&T documentation : [api_files/dcsaorg-DCSA_TNT-1.2.0-resolved.json](api_files/dcsaorg-DCSA_TNT-1.2.0-resolved.json)
+
+

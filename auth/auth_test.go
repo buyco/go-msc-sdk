@@ -1,4 +1,4 @@
-package client
+package auth
 
 import (
 	"github.com/golang/mock/gomock"
@@ -6,11 +6,11 @@ import (
 	. "github.com/onsi/gomega"
 )
 
-var _ = Describe("Auth", func() {
+var _ = Describe("Client", func() {
 	var (
 		mockCtrl   *gomock.Controller
 		client     *MockHttpClient
-		authClient *Auth
+		authClient *Client
 		apiUrl     = "http://foo.bar"
 		tenantID   = "1234"
 	)
@@ -18,7 +18,7 @@ var _ = Describe("Auth", func() {
 	BeforeEach(func() {
 		mockCtrl = gomock.NewController(GinkgoT())
 		client = NewMockHttpClient(mockCtrl)
-		authClient = NewAuth(
+		authClient = NewClient(
 			client,
 			apiUrl,
 			"azerty",
@@ -53,7 +53,7 @@ var _ = Describe("Auth", func() {
 
 	Context("When private key is valid", func() {
 		It("generates request body", func() {
-			body, err := authClient.buildParams(123)
+			body, err := authClient.buildParams()
 			Expect(err).ToNot(HaveOccurred())
 			Expect(body.Has("tenant")).To(BeTrue())
 			Expect(body.Has("client_id")).To(BeTrue())
@@ -64,7 +64,7 @@ var _ = Describe("Auth", func() {
 		})
 
 		It("generates a signed client assertion", func() {
-			signed, err := authClient.buildClientAssertion(123)
+			signed, err := authClient.buildClientAssertion()
 			Expect(err).ToNot(HaveOccurred())
 			Expect(signed).ToNot(HaveLen(0))
 		})
@@ -72,7 +72,7 @@ var _ = Describe("Auth", func() {
 
 	Context("When private key is invalid", func() {
 		BeforeEach(func() {
-			authClient = NewAuth(
+			authClient = NewClient(
 				client,
 				"http://foo.bar",
 				"azerty",
@@ -84,12 +84,12 @@ var _ = Describe("Auth", func() {
 		})
 
 		It("fails to generate request body", func() {
-			_, err := authClient.buildParams(123)
+			_, err := authClient.buildParams()
 			Expect(err).To(HaveOccurred())
 		})
 
 		It("fails to generates a signed client assertion", func() {
-			_, err := authClient.buildClientAssertion(123)
+			_, err := authClient.buildClientAssertion()
 			Expect(err).To(HaveOccurred())
 		})
 	})

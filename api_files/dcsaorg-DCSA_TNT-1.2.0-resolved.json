@@ -1,0 +1,933 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "DCSA Track and Trace API",
+    "description": "API specifications for the Track and Trace interface standard issued by DCSA.org.",
+    "contact": {
+      "name": "Digital Container Shipping Association (DCSA)",
+      "url": "https://dcsa.org",
+      "email": "info@dcsa.org"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.2.0"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/dcsaorg/DCSA_OAS/1.2.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Events",
+      "description": "Event operations"
+    },
+    {
+      "name": "Subscriptions",
+      "description": "Subscription operations"
+    }
+  ],
+  "paths": {
+    "/events": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Find events by type, Booking Reference, Bill of Lading or Equipment Reference.",
+        "description": "Returns all events filtered by the parameters.",
+        "parameters": [
+          {
+            "name": "eventType",
+            "in": "query",
+            "description": "The type of event(s) to filter by.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/eventTypeList"
+            }
+          },
+          {
+            "name": "bookingReference",
+            "in": "query",
+            "description": "The identifier for a shipment, which is issued by and unique within each of the carriers.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/bookingReference"
+            }
+          },
+          {
+            "name": "billOfLadingNumber",
+            "in": "query",
+            "description": "Bill of lading number is an identifier that links to a shipment. Bill of Lading is the legal document issued to the customer, which confirms the carrier's receipt of the cargo from the customer acknowledging goods being shipped and specifying the terms of delivery.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/billOfLadingNumber"
+            }
+          },
+          {
+            "name": "equipmentReference",
+            "in": "query",
+            "description": "The unique identifier for the equipment, which should follow the BIC ISO Container Identification Number where possible.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "$ref": "#/components/schemas/equipmentReference"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/events"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/{eventID}": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Find events by eventID.",
+        "description": "Returns event with the specified eventID.",
+        "parameters": [
+          {
+            "name": "eventID",
+            "in": "path",
+            "description": "The ID of the event to receive",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event-subscriptions": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Receive a list of your active subscriptionIDs",
+        "responses": {
+          "200": {
+            "description": "Returns a list of event subscriptions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/eventSubscription"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Create an event subscription",
+        "requestBody": {
+          "description": "Parameters used to configure the subscription",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/eventSubscriptionBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Subscription created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/eventSubscription"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        },
+        "callbacks": {
+          "event": {
+            "{$request.body.callbackUrl}": {
+              "post": {
+                "parameters": [
+                  {
+                    "name": "Signature",
+                    "in": "header",
+                    "required": true,
+                    "style": "simple",
+                    "explode": true,
+                    "schema": {
+                      "$ref": "#/components/headers/signatureHeader"
+                    }
+                  }
+                ],
+                "requestBody": {
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/events"
+                      }
+                    }
+                  },
+                  "required": true
+                },
+                "responses": {
+                  "200": {
+                    "description": "Your server returns this code if it accepts the callback"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/event-subscriptions/{subscriptionID}": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Find event subscription by subscription ID",
+        "parameters": [
+          {
+            "name": "subscriptionID",
+            "in": "path",
+            "description": "The universal unique ID of the subscription to receive.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Subscription returned",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/eventSubscription"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Alter an event subscription",
+        "parameters": [
+          {
+            "name": "subscriptionID",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          }
+        ],
+        "requestBody": {
+          "description": "Parameters used to configure the subscription",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/eventSubscription"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Subscription updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/eventSubscription"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "Stop an event subscription, using the subscription ID",
+        "parameters": [
+          {
+            "name": "subscriptionID",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Subscription stopped"
+          },
+          "default": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "event": {
+        "required": [
+          "eventClassifierCode",
+          "eventDateTime",
+          "eventID",
+          "eventType",
+          "eventTypeCode"
+        ],
+        "type": "object",
+        "properties": {
+          "eventID": {
+            "$ref": "#/components/schemas/eventID"
+          },
+          "eventType": {
+            "$ref": "#/components/schemas/eventType"
+          },
+          "eventDateTime": {
+            "$ref": "#/components/schemas/eventDateTime"
+          },
+          "eventClassifierCode": {
+            "$ref": "#/components/schemas/eventClassifierCode"
+          },
+          "eventTypeCode": {
+            "$ref": "#/components/schemas/eventTypeCode"
+          }
+        },
+        "description": "The event entity is described as a generalization of all the specific event categories. An event always takes place in relation to a shipment and can additionally be linked to a transport or an equipment"
+      },
+      "shipmentEvent": {
+        "description": "The shipment event entity is a specialization of the event entity to support specification of data that only applies to a shipment event.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/event"
+          },
+          {
+            "required": [
+              "shipmentInformationTypeCode"
+            ],
+            "type": "object",
+            "properties": {
+              "eventType": {
+                "type": "string",
+                "nullable": false,
+                "example": "SHIPMENT",
+                "enum": [
+                  "SHIPMENT"
+                ]
+              },
+              "shipmentInformationTypeCode": {
+                "$ref": "#/components/schemas/shipmentInformationTypeCode"
+              }
+            }
+          }
+        ]
+      },
+      "transportEvent": {
+        "description": "The transport event entity is a specialization of the event entity to support specification of data that only applies to a transport event.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/event"
+          },
+          {
+            "required": [
+              "UNLocationCode",
+              "facilityCode",
+              "facilityTypeCode",
+              "transportLegReference",
+              "transportReference"
+            ],
+            "type": "object",
+            "properties": {
+              "eventType": {
+                "type": "string",
+                "nullable": false,
+                "example": "TRANSPORT",
+                "enum": [
+                  "TRANSPORT"
+                ]
+              },
+              "transportReference": {
+                "$ref": "#/components/schemas/transportReference"
+              },
+              "transportLegReference": {
+                "$ref": "#/components/schemas/transportLegReference"
+              },
+              "facilityTypeCode": {
+                "$ref": "#/components/schemas/facilityTypeCode"
+              },
+              "UNLocationCode": {
+                "$ref": "#/components/schemas/UNLocationCode"
+              },
+              "facilityCode": {
+                "$ref": "#/components/schemas/facilityCode"
+              },
+              "otherFacility": {
+                "$ref": "#/components/schemas/otherFacility"
+              },
+              "modeOfTransportCode": {
+                "$ref": "#/components/schemas/modeOfTransportCode"
+              }
+            }
+          }
+        ]
+      },
+      "equipmentEvent": {
+        "description": "The equipment event entity is a specialization of the event entity to support specification of data that only applies to an equipment event.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/event"
+          },
+          {
+            "required": [
+              "UNLocationCode",
+              "emptyIndicatorCode",
+              "facilityCode",
+              "facilityTypeCode"
+            ],
+            "type": "object",
+            "properties": {
+              "eventType": {
+                "type": "string",
+                "nullable": false,
+                "example": "EQUIPMENT",
+                "enum": [
+                  "EQUIPMENT"
+                ]
+              },
+              "equipmentReference": {
+                "$ref": "#/components/schemas/equipmentReference"
+              },
+              "facilityTypeCode": {
+                "$ref": "#/components/schemas/facilityTypeCode"
+              },
+              "UNLocationCode": {
+                "$ref": "#/components/schemas/UNLocationCode"
+              },
+              "facilityCode": {
+                "$ref": "#/components/schemas/facilityCode"
+              },
+              "otherFacility": {
+                "$ref": "#/components/schemas/otherFacility"
+              },
+              "emptyIndicatorCode": {
+                "$ref": "#/components/schemas/emptyIndicatorCode"
+              },
+              "description": {
+                "$ref": "#/components/schemas/description"
+              }
+            }
+          }
+        ]
+      },
+      "transportEquipmentEvent": {
+        "description": "The transport equipment event entity is a specialization of the event entity to support specification of data that applies to both transport and equipment events.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/event"
+          },
+          {
+            "required": [
+              "UNLocationCode",
+              "emptyIndicatorCode",
+              "facilityCode",
+              "facilityTypeCode",
+              "transportLegReference",
+              "transportReference"
+            ],
+            "type": "object",
+            "properties": {
+              "eventType": {
+                "type": "string",
+                "nullable": false,
+                "example": "TRANSPORTEQUIPMENT",
+                "enum": [
+                  "TRANSPORTEQUIPMENT"
+                ]
+              },
+              "transportReference": {
+                "$ref": "#/components/schemas/transportReference"
+              },
+              "transportLegReference": {
+                "$ref": "#/components/schemas/transportLegReference"
+              },
+              "equipmentReference": {
+                "$ref": "#/components/schemas/equipmentReference"
+              },
+              "facilityTypeCode": {
+                "$ref": "#/components/schemas/facilityTypeCode"
+              },
+              "UNLocationCode": {
+                "$ref": "#/components/schemas/UNLocationCode"
+              },
+              "facilityCode": {
+                "$ref": "#/components/schemas/facilityCode"
+              },
+              "otherFacility": {
+                "$ref": "#/components/schemas/otherFacility"
+              },
+              "emptyIndicatorCode": {
+                "$ref": "#/components/schemas/emptyIndicatorCode"
+              },
+              "modeOfTransportCode": {
+                "$ref": "#/components/schemas/modeOfTransportCode"
+              }
+            }
+          }
+        ]
+      },
+      "events": {
+        "required": [
+          "events"
+        ],
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": {
+              "discriminator": {
+                "propertyName": "eventType"
+              },
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/transportEvent"
+                },
+                {
+                  "$ref": "#/components/schemas/shipmentEvent"
+                },
+                {
+                  "$ref": "#/components/schemas/equipmentEvent"
+                },
+                {
+                  "$ref": "#/components/schemas/transportEquipmentEvent"
+                }
+              ]
+            }
+          }
+        },
+        "description": "List of events for shipment journey."
+      },
+      "error": {
+        "required": [
+          "errorDateTime",
+          "errors",
+          "httpMethod",
+          "requestUri",
+          "statusCode",
+          "statusCodeText"
+        ],
+        "type": "object",
+        "properties": {
+          "httpMethod": {
+            "type": "string",
+            "description": "The HTTP request method type",
+            "example": "POST"
+          },
+          "requestUri": {
+            "type": "string",
+            "description": "The request URI.",
+            "example": "https://dcsa.org/dcsa/tnt/v1/events"
+          },
+          "errors": {
+            "$ref": "#/components/schemas/errors"
+          },
+          "statusCode": {
+            "type": "string",
+            "description": "The HTTP status code",
+            "example": "400"
+          },
+          "statusCodeText": {
+            "type": "string",
+            "description": "The textual representation of the response status.",
+            "example": "Bad Request"
+          },
+          "errorDateTime": {
+            "type": "string",
+            "description": "The date and time (in ISO 8601 format) the error occured.",
+            "example": "2019-11-12T07:41:00+08:30"
+          }
+        }
+      },
+      "errors": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/errors_inner"
+        }
+      },
+      "eventSubscriptionBody": {
+        "required": [
+          "callbackUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "callbackUrl": {
+            "$ref": "#/components/schemas/callbackUrl"
+          },
+          "eventType": {
+            "$ref": "#/components/schemas/eventTypeList"
+          },
+          "bookingReference": {
+            "$ref": "#/components/schemas/bookingReference"
+          },
+          "billOfLadingNumber": {
+            "$ref": "#/components/schemas/billOfLadingNumber"
+          },
+          "equipmentReference": {
+            "$ref": "#/components/schemas/equipmentReference"
+          }
+        },
+        "description": "The object used by the POST event-subscriptions endpoint"
+      },
+      "eventSubscription": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/subscriptionID"
+          },
+          {
+            "$ref": "#/components/schemas/eventSubscriptionBody"
+          }
+        ]
+      },
+      "bookingReference": {
+        "type": "string",
+        "description": "The identifier for a shipment, which is issued by and unique within each of the carriers.",
+        "example": "ABC709951"
+      },
+      "transportReference": {
+        "type": "string",
+        "description": "The reference for the transport, e.g. when the mode of transport is a vessel, the transport reference will be the vessel IMO number.",
+        "example": "9648714"
+      },
+      "equipmentReference": {
+        "type": "string",
+        "description": "The unique identifier for the equipment, which should follow the BIC ISO Container Identification Number where possible. If a container is not yet assigned to a shipment, the interface cannot return any information when an equipment reference is given as input. If a container is assigned to an (active) shipment, the interface returns information on the active shipment.",
+        "example": "APZU4812090"
+      },
+      "billOfLadingNumber": {
+        "type": "string",
+        "description": "Bill of lading number is an identifier that links to a shipment. Bill of Lading is the legal document issued to the customer, which confirms the carrier's receipt of the cargo from the customer acknowledging goods being shipped and specifying the terms of delivery.",
+        "example": "ABCD421911263977"
+      },
+      "facilityTypeCode": {
+        "type": "string",
+        "description": "The code to identify the specific type of facility.",
+        "example": "POTE"
+      },
+      "UNLocationCode": {
+        "type": "string",
+        "description": "The UN Location Code identifies a location in the sense of a city/a town/a village, being the smaller administrative area existing as defined by the competent national authority in each country.",
+        "example": "USNYC"
+      },
+      "facilityCode": {
+        "type": "string",
+        "description": "The code used for identifying the specific facility.",
+        "example": "AEAUHADT"
+      },
+      "otherFacility": {
+        "type": "string",
+        "description": "An alternative way to capture the facility when no standardized DCSA facility code can be found.",
+        "example": "Depot location or address"
+      },
+      "emptyIndicatorCode": {
+        "type": "string",
+        "description": "Code to denote whether the equipment is empty or laden.",
+        "example": "Empty"
+      },
+      "shipmentInformationTypeCode": {
+        "type": "string",
+        "description": "The code to identify the type of information that is related to the shipment.",
+        "example": "SRM"
+      },
+      "transportLegReference": {
+        "type": "string",
+        "description": "The transport leg reference will be specific per mode of transport:\n- Vessel: Voyage number as specified by the vessel operator\n- Truck: Not yet specified\n- Rail: Not yet specified\n- Barge: Not yet specified.\n",
+        "example": "025E"
+      },
+      "eventDateTime": {
+        "type": "string",
+        "description": "The local date and time, where the event took place, in ISO 8601 format.",
+        "format": "date-time",
+        "example": "2019-11-12T07:41:00+08:30"
+      },
+      "eventID": {
+        "type": "string",
+        "description": "The unique identifier for the Equipment Event ID/Transport Event ID/Shipment Event ID.",
+        "example": "1"
+      },
+      "eventClassifierCode": {
+        "type": "string",
+        "description": "Code for the event classifier, either PLN, ACT or EST.",
+        "example": "ACT"
+      },
+      "eventTypeCode": {
+        "type": "string",
+        "description": "Unique identifier for Event Type Code.",
+        "example": "ARRI"
+      },
+      "description": {
+        "type": "string",
+        "description": "Description for Event Type Code.",
+        "example": "Arrival at Port"
+      },
+      "modeOfTransportCode": {
+        "type": "string",
+        "description": "A code specifying a type of transport mode.",
+        "example": "1"
+      },
+      "subscriptionID": {
+        "type": "object",
+        "properties": {
+          "subscriptionID": {
+            "type": "string",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426614174000"
+          }
+        },
+        "description": "The carrier issues a unique ID to the shipper or consignee for that subscription"
+      },
+      "callbackUrl": {
+        "type": "string",
+        "description": "Your server, where the API server should send the event data",
+        "format": "uri",
+        "nullable": false,
+        "example": "https://myserver.com/send/callback/here"
+      },
+      "eventType": {
+        "type": "string",
+        "description": "The Event Type of the object.",
+        "nullable": false,
+        "enum": [
+          "EQUIPMENT",
+          "SHIPMENT",
+          "TRANSPORT",
+          "TRANSPORTEQUIPMENT"
+        ]
+      },
+      "eventTypeList": {
+        "type": "array",
+        "description": "A list of event types. Default is all events",
+        "example": [
+          "EQUIPMENT",
+          "SHIPMENT",
+          "TRANSPORT",
+          "TRANSPORTEQUIPMENT"
+        ],
+        "items": {
+          "$ref": "#/components/schemas/eventType"
+        },
+        "default": [
+          "EQUIPMENT",
+          "SHIPMENT",
+          "TRANSPORT",
+          "TRANSPORTEQUIPMENT"
+        ]
+      },
+      "inline_response_200": {
+        "example": {
+          "eventID": 1,
+          "eventType": "SHIPMENT",
+          "eventDateTime": "2019-11-12T07:41:00+08:30",
+          "eventClassifierCode": "ACT",
+          "eventTypeCode": "ARRI",
+          "shipmentInformationTypeCode": "SRM"
+        },
+        "discriminator": {
+          "propertyName": "eventType"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/transportEvent"
+          },
+          {
+            "$ref": "#/components/schemas/shipmentEvent"
+          },
+          {
+            "$ref": "#/components/schemas/equipmentEvent"
+          },
+          {
+            "$ref": "#/components/schemas/transportEquipmentEvent"
+          }
+        ]
+      },
+      "errors_inner": {
+        "required": [
+          "message",
+          "reason"
+        ],
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "description": "High level error message.",
+            "example": "invalidQuery"
+          },
+          "message": {
+            "type": "string",
+            "description": "Detailed error message.",
+            "example": "The request did not contain one of the three required query parameters."
+          }
+        }
+      }
+    },
+    "parameters": {
+      "subscriptionIDPathParam": {
+        "name": "subscriptionID",
+        "in": "path",
+        "description": "The universal unique ID of the subscription to receive",
+        "required": true,
+        "style": "simple",
+        "explode": false,
+        "schema": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "example": "123e4567-e89b-12d3-a456-426614174000"
+      }
+    },
+    "headers": {
+      "signatureHeader": {
+        "style": "simple",
+        "explode": false,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "keyId": {
+              "type": "string",
+              "format": "uuid",
+              "example": "123e4567-e89b-12d3-a456-426614174000"
+            },
+            "created": {
+              "type": "integer",
+              "example": 1591960384
+            },
+            "headers": {
+              "type": "string",
+              "example": "(request-target) (created) date host"
+            },
+            "signature": {
+              "type": "string",
+              "example": "aGkgZnJvbSBkZW5tYXJr"
+            }
+          }
+        }
+      }
+    }
+  }
+}

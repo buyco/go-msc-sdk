@@ -1,4 +1,4 @@
-package client
+package auth
 
 import (
 	"testing"
@@ -9,5 +9,5 @@ import (
 
 func TestClient(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Client Suite")
+	RunSpecs(t, "Auth Suite")
 }

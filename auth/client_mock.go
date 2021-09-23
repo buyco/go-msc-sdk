@@ -2,9 +2,10 @@
 // Source: ./client/http.go
 
 // Package client is a generated GoMock package.
-package client
+package auth
 
 import (
+	http "net/http"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
@@ -31,6 +32,26 @@ func NewMockHttpClient(ctrl *gomock.Controller) *MockHttpClient {
 // EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockHttpClient) EXPECT() *MockHttpClientMockRecorder {
 	return m.recorder
+}
+
+// Delete mocks base method.
+func (m *MockHttpClient) Delete(url string, v ...interface{}) (HttpReponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{url}
+	for _, a := range v {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "Delete", varargs...)
+	ret0, _ := ret[0].(HttpReponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Delete indicates an expected call of Delete.
+func (mr *MockHttpClientMockRecorder) Delete(url interface{}, v ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{url}, v...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockHttpClient)(nil).Delete), varargs...)
 }
 
 // Get mocks base method.
@@ -73,6 +94,26 @@ func (mr *MockHttpClientMockRecorder) Post(url interface{}, v ...interface{}) *g
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Post", reflect.TypeOf((*MockHttpClient)(nil).Post), varargs...)
 }
 
+// Put mocks base method.
+func (m *MockHttpClient) Put(url string, v ...interface{}) (HttpReponse, error) {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{url}
+	for _, a := range v {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "Put", varargs...)
+	ret0, _ := ret[0].(HttpReponse)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Put indicates an expected call of Put.
+func (mr *MockHttpClientMockRecorder) Put(url interface{}, v ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{url}, v...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Put", reflect.TypeOf((*MockHttpClient)(nil).Put), varargs...)
+}
+
 // MockHttpReponse is a mock of HttpReponse interface.
 type MockHttpReponse struct {
 	ctrl     *gomock.Controller
@@ -108,6 +149,34 @@ func (m *MockHttpReponse) Bytes() []byte {
 func (mr *MockHttpReponseMockRecorder) Bytes() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Bytes", reflect.TypeOf((*MockHttpReponse)(nil).Bytes))
+}
+
+// Request mocks base method.
+func (m *MockHttpReponse) Request() *http.Request {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Request")
+	ret0, _ := ret[0].(*http.Request)
+	return ret0
+}
+
+// Request indicates an expected call of Request.
+func (mr *MockHttpReponseMockRecorder) Request() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Request", reflect.TypeOf((*MockHttpReponse)(nil).Request))
+}
+
+// Response mocks base method.
+func (m *MockHttpReponse) Response() *http.Response {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Response")
+	ret0, _ := ret[0].(*http.Response)
+	return ret0
+}
+
+// Response indicates an expected call of Response.
+func (mr *MockHttpReponseMockRecorder) Response() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Response", reflect.TypeOf((*MockHttpReponse)(nil).Response))
 }
 
 // ToBytes mocks base method.

@@ -1,0 +1,790 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: info@dcsa.org
+    name: Digital Container Shipping Association (DCSA)
+    url: https://dcsa.org
+  description: API specifications for the Track and Trace interface standard issued
+    by DCSA.org.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: DCSA Track and Trace API
+  version: 1.2.0
+servers:
+- description: SwaggerHub API Auto Mocking
+  url: https://virtserver.swaggerhub.com/dcsaorg/DCSA_OAS/1.2.0
+tags:
+- description: Event operations
+  name: Events
+- description: Subscription operations
+  name: Subscriptions
+paths:
+  /events:
+    get:
+      description: Returns all events filtered by the parameters.
+      parameters:
+      - description: The type of event(s) to filter by.
+        explode: true
+        in: query
+        name: eventType
+        required: false
+        schema:
+          $ref: '#/components/schemas/eventTypeList'
+        style: form
+      - description: The identifier for a shipment, which is issued by and unique
+          within each of the carriers.
+        explode: true
+        in: query
+        name: bookingReference
+        required: false
+        schema:
+          $ref: '#/components/schemas/bookingReference'
+        style: form
+      - description: Bill of lading number is an identifier that links to a shipment.
+          Bill of Lading is the legal document issued to the customer, which confirms
+          the carrier's receipt of the cargo from the customer acknowledging goods
+          being shipped and specifying the terms of delivery.
+        explode: true
+        in: query
+        name: billOfLadingNumber
+        required: false
+        schema:
+          $ref: '#/components/schemas/billOfLadingNumber'
+        style: form
+      - description: The unique identifier for the equipment, which should follow
+          the BIC ISO Container Identification Number where possible.
+        explode: true
+        in: query
+        name: equipmentReference
+        required: false
+        schema:
+          $ref: '#/components/schemas/equipmentReference'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/events'
+          description: Successful operation
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unexpected error
+      summary: Find events by type, Booking Reference, Bill of Lading or Equipment
+        Reference.
+      tags:
+      - Events
+  /events/{eventID}:
+    get:
+      description: Returns event with the specified eventID.
+      parameters:
+      - description: The ID of the event to receive
+        explode: false
+        in: path
+        name: eventID
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+          description: Successful operation
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unexpected error
+      summary: Find events by eventID.
+      tags:
+      - Events
+  /event-subscriptions:
+    get:
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/eventSubscription'
+                type: array
+          description: Returns a list of event subscriptions
+      summary: Receive a list of your active subscriptionIDs
+      tags:
+      - Subscriptions
+    post:
+      callbacks:
+        event:
+          '{$request.body.callbackUrl}':
+            post:
+              operationId: event_Post
+              parameters:
+              - explode: true
+                in: header
+                name: Signature
+                required: true
+                schema:
+                  $ref: '#/components/headers/signatureHeader'
+                style: simple
+              requestBody:
+                content:
+                  application/json:
+                    schema:
+                      $ref: '#/components/schemas/events'
+                required: true
+              responses:
+                "200":
+                  description: Your server returns this code if it accepts the callback
+              x-callback-request: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eventSubscriptionBody'
+        description: Parameters used to configure the subscription
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eventSubscription'
+          description: Subscription created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unexpected error
+      summary: Create an event subscription
+      tags:
+      - Subscriptions
+  /event-subscriptions/{subscriptionID}:
+    delete:
+      parameters:
+      - example: 123e4567-e89b-12d3-a456-426614174000
+        explode: false
+        in: path
+        name: subscriptionID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Subscription stopped
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unexpected error
+      summary: Stop an event subscription, using the subscription ID
+      tags:
+      - Subscriptions
+    get:
+      parameters:
+      - description: The universal unique ID of the subscription to receive.
+        example: 123e4567-e89b-12d3-a456-426614174000
+        explode: false
+        in: path
+        name: subscriptionID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eventSubscription'
+          description: Subscription returned
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unexpected error
+      summary: Find event subscription by subscription ID
+      tags:
+      - Subscriptions
+    put:
+      parameters:
+      - example: 123e4567-e89b-12d3-a456-426614174000
+        explode: false
+        in: path
+        name: subscriptionID
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/eventSubscription'
+        description: Parameters used to configure the subscription
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/eventSubscription'
+          description: Subscription updated
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+          description: Unexpected error
+      summary: Alter an event subscription
+      tags:
+      - Subscriptions
+components:
+  headers:
+    signatureHeader:
+      explode: false
+      schema:
+        properties:
+          keyId:
+            example: 123e4567-e89b-12d3-a456-426614174000
+            format: uuid
+            type: string
+          created:
+            example: 1591960384
+            type: integer
+          headers:
+            example: (request-target) (created) date host
+            type: string
+          signature:
+            example: aGkgZnJvbSBkZW5tYXJr
+            type: string
+        type: object
+      style: simple
+  parameters:
+    subscriptionIDPathParam:
+      description: The universal unique ID of the subscription to receive
+      example: 123e4567-e89b-12d3-a456-426614174000
+      explode: false
+      in: path
+      name: subscriptionID
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+  schemas:
+    event:
+      description: The event entity is described as a generalization of all the specific
+        event categories. An event always takes place in relation to a shipment and
+        can additionally be linked to a transport or an equipment
+      properties:
+        eventID:
+          description: The unique identifier for the Equipment Event ID/Transport
+            Event ID/Shipment Event ID.
+          example: "1"
+          type: string
+        eventType:
+          $ref: '#/components/schemas/eventType'
+        eventDateTime:
+          description: The local date and time, where the event took place, in ISO
+            8601 format.
+          example: 2019-11-12T07:41:00+08:30
+          format: date-time
+          type: string
+        eventClassifierCode:
+          description: Code for the event classifier, either PLN, ACT or EST.
+          example: ACT
+          type: string
+        eventTypeCode:
+          description: Unique identifier for Event Type Code.
+          example: ARRI
+          type: string
+      required:
+      - eventClassifierCode
+      - eventDateTime
+      - eventID
+      - eventType
+      - eventTypeCode
+      type: object
+    shipmentEvent:
+      allOf:
+      - $ref: '#/components/schemas/event'
+      - $ref: '#/components/schemas/shipmentEvent_allOf'
+      description: The shipment event entity is a specialization of the event entity
+        to support specification of data that only applies to a shipment event.
+    transportEvent:
+      allOf:
+      - $ref: '#/components/schemas/event'
+      - $ref: '#/components/schemas/transportEvent_allOf'
+      description: The transport event entity is a specialization of the event entity
+        to support specification of data that only applies to a transport event.
+    equipmentEvent:
+      allOf:
+      - $ref: '#/components/schemas/event'
+      - $ref: '#/components/schemas/equipmentEvent_allOf'
+      description: The equipment event entity is a specialization of the event entity
+        to support specification of data that only applies to an equipment event.
+    transportEquipmentEvent:
+      allOf:
+      - $ref: '#/components/schemas/event'
+      - $ref: '#/components/schemas/transportEquipmentEvent_allOf'
+      description: The transport equipment event entity is a specialization of the
+        event entity to support specification of data that applies to both transport
+        and equipment events.
+    events:
+      description: List of events for shipment journey.
+      example:
+        events:
+        - ""
+        - ""
+      properties:
+        events:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/transportEvent'
+            - $ref: '#/components/schemas/shipmentEvent'
+            - $ref: '#/components/schemas/equipmentEvent'
+            - $ref: '#/components/schemas/transportEquipmentEvent'
+            discriminator:
+              propertyName: eventType
+          type: array
+      required:
+      - events
+      type: object
+    error:
+      properties:
+        httpMethod:
+          description: The HTTP request method type
+          example: POST
+          type: string
+        requestUri:
+          description: The request URI.
+          example: https://dcsa.org/dcsa/tnt/v1/events
+          type: string
+        errors:
+          items:
+            $ref: '#/components/schemas/errors_inner'
+          type: array
+        statusCode:
+          description: The HTTP status code
+          example: "400"
+          type: string
+        statusCodeText:
+          description: The textual representation of the response status.
+          example: Bad Request
+          type: string
+        errorDateTime:
+          description: The date and time (in ISO 8601 format) the error occured.
+          example: 2019-11-12T07:41:00+08:30
+          type: string
+      required:
+      - errorDateTime
+      - errors
+      - httpMethod
+      - requestUri
+      - statusCode
+      - statusCodeText
+      type: object
+    errors:
+      items:
+        $ref: '#/components/schemas/errors_inner'
+      type: array
+    eventSubscriptionBody:
+      description: The object used by the POST event-subscriptions endpoint
+      properties:
+        callbackUrl:
+          description: Your server, where the API server should send the event data
+          example: https://myserver.com/send/callback/here
+          format: uri
+          nullable: false
+          type: string
+        eventType:
+          default:
+          - EQUIPMENT
+          - SHIPMENT
+          - TRANSPORT
+          - TRANSPORTEQUIPMENT
+          description: A list of event types. Default is all events
+          example:
+          - EQUIPMENT
+          - SHIPMENT
+          - TRANSPORT
+          - TRANSPORTEQUIPMENT
+          items:
+            $ref: '#/components/schemas/eventType'
+          type: array
+        bookingReference:
+          description: The identifier for a shipment, which is issued by and unique
+            within each of the carriers.
+          example: ABC709951
+          type: string
+        billOfLadingNumber:
+          description: Bill of lading number is an identifier that links to a shipment.
+            Bill of Lading is the legal document issued to the customer, which confirms
+            the carrier's receipt of the cargo from the customer acknowledging goods
+            being shipped and specifying the terms of delivery.
+          example: ABCD421911263977
+          type: string
+        equipmentReference:
+          description: The unique identifier for the equipment, which should follow
+            the BIC ISO Container Identification Number where possible. If a container
+            is not yet assigned to a shipment, the interface cannot return any information
+            when an equipment reference is given as input. If a container is assigned
+            to an (active) shipment, the interface returns information on the active
+            shipment.
+          example: APZU4812090
+          type: string
+      required:
+      - callbackUrl
+      type: object
+    eventSubscription:
+      allOf:
+      - $ref: '#/components/schemas/subscriptionID'
+      - $ref: '#/components/schemas/eventSubscriptionBody'
+    bookingReference:
+      description: The identifier for a shipment, which is issued by and unique within
+        each of the carriers.
+      example: ABC709951
+      type: string
+    transportReference:
+      description: The reference for the transport, e.g. when the mode of transport
+        is a vessel, the transport reference will be the vessel IMO number.
+      example: "9648714"
+      type: string
+    equipmentReference:
+      description: The unique identifier for the equipment, which should follow the
+        BIC ISO Container Identification Number where possible. If a container is
+        not yet assigned to a shipment, the interface cannot return any information
+        when an equipment reference is given as input. If a container is assigned
+        to an (active) shipment, the interface returns information on the active shipment.
+      example: APZU4812090
+      type: string
+    billOfLadingNumber:
+      description: Bill of lading number is an identifier that links to a shipment.
+        Bill of Lading is the legal document issued to the customer, which confirms
+        the carrier's receipt of the cargo from the customer acknowledging goods being
+        shipped and specifying the terms of delivery.
+      example: ABCD421911263977
+      type: string
+    facilityTypeCode:
+      description: The code to identify the specific type of facility.
+      example: POTE
+      type: string
+    UNLocationCode:
+      description: The UN Location Code identifies a location in the sense of a city/a
+        town/a village, being the smaller administrative area existing as defined
+        by the competent national authority in each country.
+      example: USNYC
+      type: string
+    facilityCode:
+      description: The code used for identifying the specific facility.
+      example: AEAUHADT
+      type: string
+    otherFacility:
+      description: An alternative way to capture the facility when no standardized
+        DCSA facility code can be found.
+      example: Depot location or address
+      type: string
+    emptyIndicatorCode:
+      description: Code to denote whether the equipment is empty or laden.
+      example: Empty
+      type: string
+    shipmentInformationTypeCode:
+      description: The code to identify the type of information that is related to
+        the shipment.
+      example: SRM
+      type: string
+    transportLegReference:
+      description: |
+        The transport leg reference will be specific per mode of transport:
+        - Vessel: Voyage number as specified by the vessel operator
+        - Truck: Not yet specified
+        - Rail: Not yet specified
+        - Barge: Not yet specified.
+      example: 025E
+      type: string
+    eventDateTime:
+      description: The local date and time, where the event took place, in ISO 8601
+        format.
+      example: 2019-11-12T07:41:00+08:30
+      format: date-time
+      type: string
+    eventID:
+      description: The unique identifier for the Equipment Event ID/Transport Event
+        ID/Shipment Event ID.
+      example: "1"
+      type: string
+    eventClassifierCode:
+      description: Code for the event classifier, either PLN, ACT or EST.
+      example: ACT
+      type: string
+    eventTypeCode:
+      description: Unique identifier for Event Type Code.
+      example: ARRI
+      type: string
+    modeOfTransportCode:
+      description: A code specifying a type of transport mode.
+      example: "1"
+      type: string
+    subscriptionID:
+      description: The carrier issues a unique ID to the shipper or consignee for
+        that subscription
+      properties:
+        subscriptionID:
+          example: 123e4567-e89b-12d3-a456-426614174000
+          format: uuid
+          type: string
+      type: object
+    callbackUrl:
+      description: Your server, where the API server should send the event data
+      example: https://myserver.com/send/callback/here
+      format: uri
+      nullable: false
+      type: string
+    eventType:
+      description: The Event Type of the object.
+      enum:
+      - EQUIPMENT
+      - SHIPMENT
+      - TRANSPORT
+      - TRANSPORTEQUIPMENT
+      nullable: false
+      type: string
+    eventTypeList:
+      default:
+      - EQUIPMENT
+      - SHIPMENT
+      - TRANSPORT
+      - TRANSPORTEQUIPMENT
+      description: A list of event types. Default is all events
+      example:
+      - EQUIPMENT
+      - SHIPMENT
+      - TRANSPORT
+      - TRANSPORTEQUIPMENT
+      items:
+        $ref: '#/components/schemas/eventType'
+      type: array
+    inline_response_200:
+      discriminator:
+        propertyName: eventType
+      example:
+        eventID: 1
+        eventType: SHIPMENT
+        eventDateTime: 2019-11-12T07:41:00+08:30
+        eventClassifierCode: ACT
+        eventTypeCode: ARRI
+        shipmentInformationTypeCode: SRM
+      oneOf:
+      - $ref: '#/components/schemas/transportEvent'
+      - $ref: '#/components/schemas/shipmentEvent'
+      - $ref: '#/components/schemas/equipmentEvent'
+      - $ref: '#/components/schemas/transportEquipmentEvent'
+    errors_inner:
+      properties:
+        reason:
+          description: High level error message.
+          example: invalidQuery
+          type: string
+        message:
+          description: Detailed error message.
+          example: The request did not contain one of the three required query parameters.
+          type: string
+      required:
+      - message
+      - reason
+      type: object
+    shipmentEvent_allOf:
+      properties:
+        eventType:
+          enum:
+          - SHIPMENT
+          example: SHIPMENT
+          nullable: false
+          type: string
+        shipmentInformationTypeCode:
+          description: The code to identify the type of information that is related
+            to the shipment.
+          example: SRM
+          type: string
+      required:
+      - shipmentInformationTypeCode
+      type: object
+    transportEvent_allOf:
+      properties:
+        eventType:
+          enum:
+          - TRANSPORT
+          example: TRANSPORT
+          nullable: false
+          type: string
+        transportReference:
+          description: The reference for the transport, e.g. when the mode of transport
+            is a vessel, the transport reference will be the vessel IMO number.
+          example: "9648714"
+          type: string
+        transportLegReference:
+          description: |
+            The transport leg reference will be specific per mode of transport:
+            - Vessel: Voyage number as specified by the vessel operator
+            - Truck: Not yet specified
+            - Rail: Not yet specified
+            - Barge: Not yet specified.
+          example: 025E
+          type: string
+        facilityTypeCode:
+          description: The code to identify the specific type of facility.
+          example: POTE
+          type: string
+        UNLocationCode:
+          description: The UN Location Code identifies a location in the sense of
+            a city/a town/a village, being the smaller administrative area existing
+            as defined by the competent national authority in each country.
+          example: USNYC
+          type: string
+        facilityCode:
+          description: The code used for identifying the specific facility.
+          example: AEAUHADT
+          type: string
+        otherFacility:
+          description: An alternative way to capture the facility when no standardized
+            DCSA facility code can be found.
+          example: Depot location or address
+          type: string
+        modeOfTransportCode:
+          description: A code specifying a type of transport mode.
+          example: "1"
+          type: string
+      required:
+      - UNLocationCode
+      - facilityCode
+      - facilityTypeCode
+      - transportLegReference
+      - transportReference
+      type: object
+    equipmentEvent_allOf:
+      properties:
+        eventType:
+          enum:
+          - EQUIPMENT
+          example: EQUIPMENT
+          nullable: false
+          type: string
+        equipmentReference:
+          description: The unique identifier for the equipment, which should follow
+            the BIC ISO Container Identification Number where possible. If a container
+            is not yet assigned to a shipment, the interface cannot return any information
+            when an equipment reference is given as input. If a container is assigned
+            to an (active) shipment, the interface returns information on the active
+            shipment.
+          example: APZU4812090
+          type: string
+        facilityTypeCode:
+          description: The code to identify the specific type of facility.
+          example: POTE
+          type: string
+        UNLocationCode:
+          description: The UN Location Code identifies a location in the sense of
+            a city/a town/a village, being the smaller administrative area existing
+            as defined by the competent national authority in each country.
+          example: USNYC
+          type: string
+        facilityCode:
+          description: The code used for identifying the specific facility.
+          example: AEAUHADT
+          type: string
+        otherFacility:
+          description: An alternative way to capture the facility when no standardized
+            DCSA facility code can be found.
+          example: Depot location or address
+          type: string
+        emptyIndicatorCode:
+          description: Code to denote whether the equipment is empty or laden.
+          example: Empty
+          type: string
+      required:
+      - UNLocationCode
+      - emptyIndicatorCode
+      - facilityCode
+      - facilityTypeCode
+      type: object
+    transportEquipmentEvent_allOf:
+      properties:
+        eventType:
+          enum:
+          - TRANSPORTEQUIPMENT
+          example: TRANSPORTEQUIPMENT
+          nullable: false
+          type: string
+        transportReference:
+          description: The reference for the transport, e.g. when the mode of transport
+            is a vessel, the transport reference will be the vessel IMO number.
+          example: "9648714"
+          type: string
+        transportLegReference:
+          description: |
+            The transport leg reference will be specific per mode of transport:
+            - Vessel: Voyage number as specified by the vessel operator
+            - Truck: Not yet specified
+            - Rail: Not yet specified
+            - Barge: Not yet specified.
+          example: 025E
+          type: string
+        equipmentReference:
+          description: The unique identifier for the equipment, which should follow
+            the BIC ISO Container Identification Number where possible. If a container
+            is not yet assigned to a shipment, the interface cannot return any information
+            when an equipment reference is given as input. If a container is assigned
+            to an (active) shipment, the interface returns information on the active
+            shipment.
+          example: APZU4812090
+          type: string
+        facilityTypeCode:
+          description: The code to identify the specific type of facility.
+          example: POTE
+          type: string
+        UNLocationCode:
+          description: The UN Location Code identifies a location in the sense of
+            a city/a town/a village, being the smaller administrative area existing
+            as defined by the competent national authority in each country.
+          example: USNYC
+          type: string
+        facilityCode:
+          description: The code used for identifying the specific facility.
+          example: AEAUHADT
+          type: string
+        otherFacility:
+          description: An alternative way to capture the facility when no standardized
+            DCSA facility code can be found.
+          example: Depot location or address
+          type: string
+        emptyIndicatorCode:
+          description: Code to denote whether the equipment is empty or laden.
+          example: Empty
+          type: string
+        modeOfTransportCode:
+          description: A code specifying a type of transport mode.
+          example: "1"
+          type: string
+      required:
+      - UNLocationCode
+      - emptyIndicatorCode
+      - facilityCode
+      - facilityTypeCode
+      - transportLegReference
+      - transportReference
+      type: object

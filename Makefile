@@ -1,3 +1,10 @@
+DOCKER_BUILD := docker run --rm -u `id -u` -v ${PWD}:/sdk openapitools/openapi-generator-cli:v5.2.1 generate -i sdk/api_files/dcsaorg-DCSA_TNT-1.2.0-resolved.json
+GO_CLIENT := -g go -o /sdk/api \
+			--git-repo-id=go-msc-sdk --git-user-id=buyco \
+			--additional-properties=packageName=api \
+			--additional-properties=isGoSubmodule=false \
+			--additional-properties=generateInterfaces=true
+
 # Go related variables.
 GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/bin
@@ -6,7 +13,7 @@ GOBIN := $(GOBASE)/bin
 test: go-get go-test
 
 ## check: Format and lint
-check: fmt lint vet go-tidy
+check: fmt lint go-tidy
 
 ## lint: Run go fmt
 fmt:
@@ -17,7 +24,7 @@ fmt:
 lint:
 	@echo "  >  Running staticcheck go linter..."
 	@GOBIN=$(GOBIN) go install honnef.co/go/tools/cmd/staticcheck@latest
-	@$(GOBIN)/staticcheck ./...
+	@$(GOBIN)/staticcheck ./auth
 
 ## lint: Run vet
 vet:
@@ -36,6 +43,17 @@ go-get:
 go-tidy:
 	@echo "  > Running go mod tidy"
 	go mod tidy
+
+## generate: Clean and generate SDK from file.
+generate:
+	${MAKE} clean
+	${MAKE} go-sdk
+
+go-sdk:
+	${DOCKER_BUILD} ${GO_CLIENT}
+
+clean:
+	rm -rf ./api
 
 .PHONY: help
 all: help
