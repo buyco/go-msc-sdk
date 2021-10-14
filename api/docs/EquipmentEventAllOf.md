@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **FacilityCode** | **string** | The code used for identifying the specific facility. | 
 **OtherFacility** | Pointer to **string** | An alternative way to capture the facility when no standardized DCSA facility code can be found. | [optional] 
 **EmptyIndicatorCode** | **string** | Code to denote whether the equipment is empty or laden. | 
+**Description** | Pointer to **string** | Description for Event Type Code. | [optional] 
 
 ## Methods
 
@@ -185,6 +186,31 @@ and a boolean to check if the value has been set.
 
 SetEmptyIndicatorCode sets EmptyIndicatorCode field to given value.
 
+
+### GetDescription
+
+`func (o *EquipmentEventAllOf) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *EquipmentEventAllOf) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *EquipmentEventAllOf) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *EquipmentEventAllOf) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

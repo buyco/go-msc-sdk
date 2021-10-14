@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **OtherFacility** | Pointer to **string** | An alternative way to capture the facility when no standardized DCSA facility code can be found. | [optional] 
 **EmptyIndicatorCode** | **string** | Code to denote whether the equipment is empty or laden. | 
 **ModeOfTransportCode** | Pointer to **string** | A code specifying a type of transport mode. | [optional] 
+**Description** | Pointer to **string** | Description for Event Type Code. | [optional] 
 
 ## Methods
 
@@ -253,6 +254,31 @@ SetModeOfTransportCode sets ModeOfTransportCode field to given value.
 `func (o *TransportEquipmentEventAllOf) HasModeOfTransportCode() bool`
 
 HasModeOfTransportCode returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *TransportEquipmentEventAllOf) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *TransportEquipmentEventAllOf) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *TransportEquipmentEventAllOf) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *TransportEquipmentEventAllOf) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

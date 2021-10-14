@@ -536,6 +536,10 @@ components:
       description: Unique identifier for Event Type Code.
       example: ARRI
       type: string
+    description:
+      description: Description for Event Type Code.
+      example: Arrival at Port
+      type: string
     modeOfTransportCode:
       description: A code specifying a type of transport mode.
       example: "1"
@@ -669,6 +673,10 @@ components:
           description: A code specifying a type of transport mode.
           example: "1"
           type: string
+        description:
+          description: Description for Event Type Code.
+          example: Arrival at Port
+          type: string
       required:
       - UNLocationCode
       - facilityCode
@@ -715,6 +723,10 @@ components:
         emptyIndicatorCode:
           description: Code to denote whether the equipment is empty or laden.
           example: Empty
+          type: string
+        description:
+          description: Description for Event Type Code.
+          example: Arrival at Port
           type: string
       required:
       - UNLocationCode
@@ -779,6 +791,10 @@ components:
         modeOfTransportCode:
           description: A code specifying a type of transport mode.
           example: "1"
+          type: string
+        description:
+          description: Description for Event Type Code.
+          example: Arrival at Port
           type: string
       required:
       - UNLocationCode

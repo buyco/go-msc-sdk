@@ -27,8 +27,6 @@ type EquipmentEvent struct {
 	EventClassifierCode string `json:"eventClassifierCode"`
 	// Unique identifier for Event Type Code.
 	EventTypeCode string `json:"eventTypeCode"`
-	// Description for Event Type Code.
-	Description string `json:"description"`
 	// The unique identifier for the equipment, which should follow the BIC ISO Container Identification Number where possible. If a container is not yet assigned to a shipment, the interface cannot return any information when an equipment reference is given as input. If a container is assigned to an (active) shipment, the interface returns information on the active shipment.
 	EquipmentReference *string `json:"equipmentReference,omitempty"`
 	// The code to identify the specific type of facility.
@@ -41,20 +39,21 @@ type EquipmentEvent struct {
 	OtherFacility *string `json:"otherFacility,omitempty"`
 	// Code to denote whether the equipment is empty or laden.
 	EmptyIndicatorCode string `json:"emptyIndicatorCode"`
+	// Description for Event Type Code.
+	Description *string `json:"description,omitempty"`
 }
 
 // NewEquipmentEvent instantiates a new EquipmentEvent object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEquipmentEvent(eventID string, eventType string, eventDateTime time.Time, eventClassifierCode string, eventTypeCode string, description string, facilityTypeCode string, uNLocationCode string, facilityCode string, emptyIndicatorCode string) *EquipmentEvent {
+func NewEquipmentEvent(eventID string, eventType string, eventDateTime time.Time, eventClassifierCode string, eventTypeCode string, facilityTypeCode string, uNLocationCode string, facilityCode string, emptyIndicatorCode string) *EquipmentEvent {
 	this := EquipmentEvent{}
 	this.EventID = eventID
 	this.EventType = eventType
 	this.EventDateTime = eventDateTime
 	this.EventClassifierCode = eventClassifierCode
 	this.EventTypeCode = eventTypeCode
-	this.Description = description
 	this.FacilityTypeCode = facilityTypeCode
 	this.UNLocationCode = uNLocationCode
 	this.FacilityCode = facilityCode
@@ -188,30 +187,6 @@ func (o *EquipmentEvent) GetEventTypeCodeOk() (*string, bool) {
 // SetEventTypeCode sets field value
 func (o *EquipmentEvent) SetEventTypeCode(v string) {
 	o.EventTypeCode = v
-}
-
-// GetDescription returns the Description field value
-func (o *EquipmentEvent) GetDescription() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value
-// and a boolean to check if the value has been set.
-func (o *EquipmentEvent) GetDescriptionOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Description, true
-}
-
-// SetDescription sets field value
-func (o *EquipmentEvent) SetDescription(v string) {
-	o.Description = v
 }
 
 // GetEquipmentReference returns the EquipmentReference field value if set, zero value otherwise.
@@ -374,6 +349,38 @@ func (o *EquipmentEvent) SetEmptyIndicatorCode(v string) {
 	o.EmptyIndicatorCode = v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *EquipmentEvent) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *EquipmentEvent) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *EquipmentEvent) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *EquipmentEvent) SetDescription(v string) {
+	o.Description = &v
+}
+
 func (o EquipmentEvent) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -408,6 +415,9 @@ func (o EquipmentEvent) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["emptyIndicatorCode"] = o.EmptyIndicatorCode
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	return json.Marshal(toSerialize)
 }

@@ -32,6 +32,8 @@ type TransportEventAllOf struct {
 	OtherFacility *string `json:"otherFacility,omitempty"`
 	// A code specifying a type of transport mode.
 	ModeOfTransportCode *string `json:"modeOfTransportCode,omitempty"`
+	// Description for Event Type Code.
+	Description *string `json:"description,omitempty"`
 }
 
 // NewTransportEventAllOf instantiates a new TransportEventAllOf object
@@ -272,6 +274,38 @@ func (o *TransportEventAllOf) SetModeOfTransportCode(v string) {
 	o.ModeOfTransportCode = &v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *TransportEventAllOf) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TransportEventAllOf) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *TransportEventAllOf) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *TransportEventAllOf) SetDescription(v string) {
+	o.Description = &v
+}
+
 func (o TransportEventAllOf) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.EventType != nil {
@@ -297,6 +331,9 @@ func (o TransportEventAllOf) MarshalJSON() ([]byte, error) {
 	}
 	if o.ModeOfTransportCode != nil {
 		toSerialize["modeOfTransportCode"] = o.ModeOfTransportCode
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	return json.Marshal(toSerialize)
 }

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **FacilityCode** | **string** | The code used for identifying the specific facility. | 
 **OtherFacility** | Pointer to **string** | An alternative way to capture the facility when no standardized DCSA facility code can be found. | [optional] 
 **ModeOfTransportCode** | Pointer to **string** | A code specifying a type of transport mode. | [optional] 
+**Description** | Pointer to **string** | Description for Event Type Code. | [optional] 
 **ShipmentInformationTypeCode** | **string** | The code to identify the type of information that is related to the shipment. | 
 **EquipmentReference** | Pointer to **string** | The unique identifier for the equipment, which should follow the BIC ISO Container Identification Number where possible. If a container is not yet assigned to a shipment, the interface cannot return any information when an equipment reference is given as input. If a container is assigned to an (active) shipment, the interface returns information on the active shipment. | [optional] 
 **EmptyIndicatorCode** | **string** | Code to denote whether the equipment is empty or laden. | 
@@ -288,6 +289,31 @@ SetModeOfTransportCode sets ModeOfTransportCode field to given value.
 `func (o *InlineResponse200) HasModeOfTransportCode() bool`
 
 HasModeOfTransportCode returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *InlineResponse200) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *InlineResponse200) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *InlineResponse200) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *InlineResponse200) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetShipmentInformationTypeCode
 
