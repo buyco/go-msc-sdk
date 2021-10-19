@@ -86,7 +86,7 @@ func (a Client) Token(ctx context.Context) (string, time.Duration, error) {
 		return "", 0, errors.New("access token not set, error not understood")
 	}
 
-	return content["access_token"].(string), time.Duration(content["expires_in"].(float64)) * time.Second, nil
+	return content["access_token"].(string), time.Duration(content["expires_in"].(float64)) * time.Minute, nil
 
 }
 

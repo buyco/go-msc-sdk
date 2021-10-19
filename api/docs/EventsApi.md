@@ -1,6 +1,6 @@
 # \EventsApi
 
-All URIs are relative to *https://virtserver.swaggerhub.com/dcsaorg/DCSA_OAS/1.2.0*
+All URIs are relative to *https://uat.api.tech.msc.com/msc/trackandtrace/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
