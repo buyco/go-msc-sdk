@@ -106,8 +106,8 @@ func NewConfiguration() *Configuration {
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
-				URL:         "https://virtserver.swaggerhub.com/dcsaorg/DCSA_OAS/1.2.0",
-				Description: "SwaggerHub API Auto Mocking",
+				URL:         "https://uat.api.tech.msc.com/msc/trackandtrace/v1",
+				Description: "No description provided",
 			},
 		},
 		OperationServers: map[string]ServerConfigurations{},

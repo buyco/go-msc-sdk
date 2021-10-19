@@ -16,18 +16,13 @@
   },
   "servers": [
     {
-      "url": "https://virtserver.swaggerhub.com/dcsaorg/DCSA_OAS/1.2.0",
-      "description": "SwaggerHub API Auto Mocking"
+      "url": "https://uat.api.tech.msc.com/msc/trackandtrace/v1"
     }
   ],
   "tags": [
     {
       "name": "Events",
       "description": "Event operations"
-    },
-    {
-      "name": "Subscriptions",
-      "description": "Subscription operations"
     }
   ],
   "paths": {
@@ -138,236 +133,6 @@
                 }
               }
             }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/event-subscriptions": {
-      "get": {
-        "tags": [
-          "Subscriptions"
-        ],
-        "summary": "Receive a list of your active subscriptionIDs",
-        "responses": {
-          "200": {
-            "description": "Returns a list of event subscriptions",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/eventSubscription"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Subscriptions"
-        ],
-        "summary": "Create an event subscription",
-        "requestBody": {
-          "description": "Parameters used to configure the subscription",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/eventSubscriptionBody"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Subscription created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/eventSubscription"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error"
-                }
-              }
-            }
-          }
-        },
-        "callbacks": {
-          "event": {
-            "{$request.body.callbackUrl}": {
-              "post": {
-                "parameters": [
-                  {
-                    "name": "Signature",
-                    "in": "header",
-                    "required": true,
-                    "style": "simple",
-                    "explode": true,
-                    "schema": {
-                      "$ref": "#/components/headers/signatureHeader"
-                    }
-                  }
-                ],
-                "requestBody": {
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "$ref": "#/components/schemas/events"
-                      }
-                    }
-                  },
-                  "required": true
-                },
-                "responses": {
-                  "200": {
-                    "description": "Your server returns this code if it accepts the callback"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/event-subscriptions/{subscriptionID}": {
-      "get": {
-        "tags": [
-          "Subscriptions"
-        ],
-        "summary": "Find event subscription by subscription ID",
-        "parameters": [
-          {
-            "name": "subscriptionID",
-            "in": "path",
-            "description": "The universal unique ID of the subscription to receive.",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Subscription returned",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/eventSubscription"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Subscriptions"
-        ],
-        "summary": "Alter an event subscription",
-        "parameters": [
-          {
-            "name": "subscriptionID",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          }
-        ],
-        "requestBody": {
-          "description": "Parameters used to configure the subscription",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/eventSubscription"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Subscription updated",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/eventSubscription"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/error"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Subscriptions"
-        ],
-        "summary": "Stop an event subscription, using the subscription ID",
-        "parameters": [
-          {
-            "name": "subscriptionID",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "explode": false,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Subscription stopped"
           },
           "default": {
             "description": "Unexpected error",
@@ -677,40 +442,6 @@
           "$ref": "#/components/schemas/errors_inner"
         }
       },
-      "eventSubscriptionBody": {
-        "required": [
-          "callbackUrl"
-        ],
-        "type": "object",
-        "properties": {
-          "callbackUrl": {
-            "$ref": "#/components/schemas/callbackUrl"
-          },
-          "eventType": {
-            "$ref": "#/components/schemas/eventTypeList"
-          },
-          "bookingReference": {
-            "$ref": "#/components/schemas/bookingReference"
-          },
-          "billOfLadingNumber": {
-            "$ref": "#/components/schemas/billOfLadingNumber"
-          },
-          "equipmentReference": {
-            "$ref": "#/components/schemas/equipmentReference"
-          }
-        },
-        "description": "The object used by the POST event-subscriptions endpoint"
-      },
-      "eventSubscription": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/subscriptionID"
-          },
-          {
-            "$ref": "#/components/schemas/eventSubscriptionBody"
-          }
-        ]
-      },
       "bookingReference": {
         "type": "string",
         "description": "The identifier for a shipment, which is issued by and unique within each of the carriers.",
@@ -797,24 +528,6 @@
         "description": "A code specifying a type of transport mode.",
         "example": "1"
       },
-      "subscriptionID": {
-        "type": "object",
-        "properties": {
-          "subscriptionID": {
-            "type": "string",
-            "format": "uuid",
-            "example": "123e4567-e89b-12d3-a456-426614174000"
-          }
-        },
-        "description": "The carrier issues a unique ID to the shipper or consignee for that subscription"
-      },
-      "callbackUrl": {
-        "type": "string",
-        "description": "Your server, where the API server should send the event data",
-        "format": "uri",
-        "nullable": false,
-        "example": "https://myserver.com/send/callback/here"
-      },
       "eventType": {
         "type": "string",
         "description": "The Event Type of the object.",
@@ -890,21 +603,6 @@
             "example": "The request did not contain one of the three required query parameters."
           }
         }
-      }
-    },
-    "parameters": {
-      "subscriptionIDPathParam": {
-        "name": "subscriptionID",
-        "in": "path",
-        "description": "The universal unique ID of the subscription to receive",
-        "required": true,
-        "style": "simple",
-        "explode": false,
-        "schema": {
-          "type": "string",
-          "format": "uuid"
-        },
-        "example": "123e4567-e89b-12d3-a456-426614174000"
       }
     },
     "headers": {

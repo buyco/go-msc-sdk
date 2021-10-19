@@ -75,17 +75,12 @@ ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://virtserver.swaggerhub.com/dcsaorg/DCSA_OAS/1.2.0*
+All URIs are relative to *https://uat.api.tech.msc.com/msc/trackandtrace/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *EventsApi* | [**EventsEventIDGet**](docs/EventsApi.md#eventseventidget) | **Get** /events/{eventID} | Find events by eventID.
 *EventsApi* | [**EventsGet**](docs/EventsApi.md#eventsget) | **Get** /events | Find events by type, Booking Reference, Bill of Lading or Equipment Reference.
-*SubscriptionsApi* | [**EventSubscriptionsGet**](docs/SubscriptionsApi.md#eventsubscriptionsget) | **Get** /event-subscriptions | Receive a list of your active subscriptionIDs
-*SubscriptionsApi* | [**EventSubscriptionsPost**](docs/SubscriptionsApi.md#eventsubscriptionspost) | **Post** /event-subscriptions | Create an event subscription
-*SubscriptionsApi* | [**EventSubscriptionsSubscriptionIDDelete**](docs/SubscriptionsApi.md#eventsubscriptionssubscriptioniddelete) | **Delete** /event-subscriptions/{subscriptionID} | Stop an event subscription, using the subscription ID
-*SubscriptionsApi* | [**EventSubscriptionsSubscriptionIDGet**](docs/SubscriptionsApi.md#eventsubscriptionssubscriptionidget) | **Get** /event-subscriptions/{subscriptionID} | Find event subscription by subscription ID
-*SubscriptionsApi* | [**EventSubscriptionsSubscriptionIDPut**](docs/SubscriptionsApi.md#eventsubscriptionssubscriptionidput) | **Put** /event-subscriptions/{subscriptionID} | Alter an event subscription
 
 
 ## Documentation For Models
@@ -94,15 +89,12 @@ Class | Method | HTTP request | Description
  - [EquipmentEventAllOf](docs/EquipmentEventAllOf.md)
  - [ErrorsInner](docs/ErrorsInner.md)
  - [Event](docs/Event.md)
- - [EventSubscription](docs/EventSubscription.md)
- - [EventSubscriptionBody](docs/EventSubscriptionBody.md)
  - [EventType](docs/EventType.md)
  - [Events](docs/Events.md)
  - [InlineResponse200](docs/InlineResponse200.md)
  - [ModelError](docs/ModelError.md)
  - [ShipmentEvent](docs/ShipmentEvent.md)
  - [ShipmentEventAllOf](docs/ShipmentEventAllOf.md)
- - [SubscriptionID](docs/SubscriptionID.md)
  - [TransportEquipmentEvent](docs/TransportEquipmentEvent.md)
  - [TransportEquipmentEventAllOf](docs/TransportEquipmentEventAllOf.md)
  - [TransportEvent](docs/TransportEvent.md)
