@@ -12,13 +12,10 @@ info:
   title: DCSA Track and Trace API
   version: 1.2.0
 servers:
-- description: SwaggerHub API Auto Mocking
-  url: https://virtserver.swaggerhub.com/dcsaorg/DCSA_OAS/1.2.0
+- url: https://uat.api.tech.msc.com/msc/trackandtrace/v1
 tags:
 - description: Event operations
   name: Events
-- description: Subscription operations
-  name: Subscriptions
 paths:
   /events:
     get:
@@ -106,153 +103,6 @@ paths:
       summary: Find events by eventID.
       tags:
       - Events
-  /event-subscriptions:
-    get:
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: '#/components/schemas/eventSubscription'
-                type: array
-          description: Returns a list of event subscriptions
-      summary: Receive a list of your active subscriptionIDs
-      tags:
-      - Subscriptions
-    post:
-      callbacks:
-        event:
-          '{$request.body.callbackUrl}':
-            post:
-              operationId: event_Post
-              parameters:
-              - explode: true
-                in: header
-                name: Signature
-                required: true
-                schema:
-                  $ref: '#/components/headers/signatureHeader'
-                style: simple
-              requestBody:
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/events'
-                required: true
-              responses:
-                "200":
-                  description: Your server returns this code if it accepts the callback
-              x-callback-request: true
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/eventSubscriptionBody'
-        description: Parameters used to configure the subscription
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/eventSubscription'
-          description: Subscription created
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-          description: Unexpected error
-      summary: Create an event subscription
-      tags:
-      - Subscriptions
-  /event-subscriptions/{subscriptionID}:
-    delete:
-      parameters:
-      - example: 123e4567-e89b-12d3-a456-426614174000
-        explode: false
-        in: path
-        name: subscriptionID
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      responses:
-        "204":
-          description: Subscription stopped
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-          description: Unexpected error
-      summary: Stop an event subscription, using the subscription ID
-      tags:
-      - Subscriptions
-    get:
-      parameters:
-      - description: The universal unique ID of the subscription to receive.
-        example: 123e4567-e89b-12d3-a456-426614174000
-        explode: false
-        in: path
-        name: subscriptionID
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/eventSubscription'
-          description: Subscription returned
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-          description: Unexpected error
-      summary: Find event subscription by subscription ID
-      tags:
-      - Subscriptions
-    put:
-      parameters:
-      - example: 123e4567-e89b-12d3-a456-426614174000
-        explode: false
-        in: path
-        name: subscriptionID
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/eventSubscription'
-        description: Parameters used to configure the subscription
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/eventSubscription'
-          description: Subscription updated
-        default:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/error'
-          description: Unexpected error
-      summary: Alter an event subscription
-      tags:
-      - Subscriptions
 components:
   headers:
     signatureHeader:
@@ -273,18 +123,6 @@ components:
             example: aGkgZnJvbSBkZW5tYXJr
             type: string
         type: object
-      style: simple
-  parameters:
-    subscriptionIDPathParam:
-      description: The universal unique ID of the subscription to receive
-      example: 123e4567-e89b-12d3-a456-426614174000
-      explode: false
-      in: path
-      name: subscriptionID
-      required: true
-      schema:
-        format: uuid
-        type: string
       style: simple
   schemas:
     event:
@@ -403,58 +241,6 @@ components:
       items:
         $ref: '#/components/schemas/errors_inner'
       type: array
-    eventSubscriptionBody:
-      description: The object used by the POST event-subscriptions endpoint
-      properties:
-        callbackUrl:
-          description: Your server, where the API server should send the event data
-          example: https://myserver.com/send/callback/here
-          format: uri
-          nullable: false
-          type: string
-        eventType:
-          default:
-          - EQUIPMENT
-          - SHIPMENT
-          - TRANSPORT
-          - TRANSPORTEQUIPMENT
-          description: A list of event types. Default is all events
-          example:
-          - EQUIPMENT
-          - SHIPMENT
-          - TRANSPORT
-          - TRANSPORTEQUIPMENT
-          items:
-            $ref: '#/components/schemas/eventType'
-          type: array
-        bookingReference:
-          description: The identifier for a shipment, which is issued by and unique
-            within each of the carriers.
-          example: ABC709951
-          type: string
-        billOfLadingNumber:
-          description: Bill of lading number is an identifier that links to a shipment.
-            Bill of Lading is the legal document issued to the customer, which confirms
-            the carrier's receipt of the cargo from the customer acknowledging goods
-            being shipped and specifying the terms of delivery.
-          example: ABCD421911263977
-          type: string
-        equipmentReference:
-          description: The unique identifier for the equipment, which should follow
-            the BIC ISO Container Identification Number where possible. If a container
-            is not yet assigned to a shipment, the interface cannot return any information
-            when an equipment reference is given as input. If a container is assigned
-            to an (active) shipment, the interface returns information on the active
-            shipment.
-          example: APZU4812090
-          type: string
-      required:
-      - callbackUrl
-      type: object
-    eventSubscription:
-      allOf:
-      - $ref: '#/components/schemas/subscriptionID'
-      - $ref: '#/components/schemas/eventSubscriptionBody'
     bookingReference:
       description: The identifier for a shipment, which is issued by and unique within
         each of the carriers.
@@ -543,21 +329,6 @@ components:
     modeOfTransportCode:
       description: A code specifying a type of transport mode.
       example: "1"
-      type: string
-    subscriptionID:
-      description: The carrier issues a unique ID to the shipper or consignee for
-        that subscription
-      properties:
-        subscriptionID:
-          example: 123e4567-e89b-12d3-a456-426614174000
-          format: uuid
-          type: string
-      type: object
-    callbackUrl:
-      description: Your server, where the API server should send the event data
-      example: https://myserver.com/send/callback/here
-      format: uri
-      nullable: false
       type: string
     eventType:
       description: The Event Type of the object.
