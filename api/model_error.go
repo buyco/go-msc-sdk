@@ -23,7 +23,7 @@ type ModelError struct {
 	RequestUri string        `json:"requestUri"`
 	Errors     []ErrorsInner `json:"errors"`
 	// The HTTP status code
-	StatusCode string `json:"statusCode"`
+	StatusCode int32 `json:"statusCode"`
 	// The textual representation of the response status.
 	StatusCodeText string `json:"statusCodeText"`
 	// The date and time (in ISO 8601 format) the error occured.
@@ -34,7 +34,7 @@ type ModelError struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewModelError(httpMethod string, requestUri string, errors []ErrorsInner, statusCode string, statusCodeText string, errorDateTime string) *ModelError {
+func NewModelError(httpMethod string, requestUri string, errors []ErrorsInner, statusCode int32, statusCodeText string, errorDateTime string) *ModelError {
 	this := ModelError{}
 	this.HttpMethod = httpMethod
 	this.RequestUri = requestUri
@@ -126,9 +126,9 @@ func (o *ModelError) SetErrors(v []ErrorsInner) {
 }
 
 // GetStatusCode returns the StatusCode field value
-func (o *ModelError) GetStatusCode() string {
+func (o *ModelError) GetStatusCode() int32 {
 	if o == nil {
-		var ret string
+		var ret int32
 		return ret
 	}
 
@@ -137,7 +137,7 @@ func (o *ModelError) GetStatusCode() string {
 
 // GetStatusCodeOk returns a tuple with the StatusCode field value
 // and a boolean to check if the value has been set.
-func (o *ModelError) GetStatusCodeOk() (*string, bool) {
+func (o *ModelError) GetStatusCodeOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -145,7 +145,7 @@ func (o *ModelError) GetStatusCodeOk() (*string, bool) {
 }
 
 // SetStatusCode sets field value
-func (o *ModelError) SetStatusCode(v string) {
+func (o *ModelError) SetStatusCode(v int32) {
 	o.StatusCode = v
 }
 

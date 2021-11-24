@@ -219,8 +219,8 @@ components:
           type: array
         statusCode:
           description: The HTTP status code
-          example: "400"
-          type: string
+          example: 400
+          type: integer
         statusCodeText:
           description: The textual representation of the response status.
           example: Bad Request

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **HttpMethod** | **string** | The HTTP request method type | 
 **RequestUri** | **string** | The request URI. | 
 **Errors** | [**[]ErrorsInner**](ErrorsInner.md) |  | 
-**StatusCode** | **string** | The HTTP status code | 
+**StatusCode** | **int32** | The HTTP status code | 
 **StatusCodeText** | **string** | The textual representation of the response status. | 
 **ErrorDateTime** | **string** | The date and time (in ISO 8601 format) the error occured. | 
 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewModelError
 
-`func NewModelError(httpMethod string, requestUri string, errors []ErrorsInner, statusCode string, statusCodeText string, errorDateTime string, ) *ModelError`
+`func NewModelError(httpMethod string, requestUri string, errors []ErrorsInner, statusCode int32, statusCodeText string, errorDateTime string, ) *ModelError`
 
 NewModelError instantiates a new ModelError object
 This constructor will assign default values to properties that have it defined,
@@ -92,20 +92,20 @@ SetErrors sets Errors field to given value.
 
 ### GetStatusCode
 
-`func (o *ModelError) GetStatusCode() string`
+`func (o *ModelError) GetStatusCode() int32`
 
 GetStatusCode returns the StatusCode field if non-nil, zero value otherwise.
 
 ### GetStatusCodeOk
 
-`func (o *ModelError) GetStatusCodeOk() (*string, bool)`
+`func (o *ModelError) GetStatusCodeOk() (*int32, bool)`
 
 GetStatusCodeOk returns a tuple with the StatusCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatusCode
 
-`func (o *ModelError) SetStatusCode(v string)`
+`func (o *ModelError) SetStatusCode(v int32)`
 
 SetStatusCode sets StatusCode field to given value.
 

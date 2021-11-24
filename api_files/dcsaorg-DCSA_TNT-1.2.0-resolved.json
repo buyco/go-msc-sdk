@@ -420,9 +420,9 @@
             "$ref": "#/components/schemas/errors"
           },
           "statusCode": {
-            "type": "string",
+            "type": "integer",
             "description": "The HTTP status code",
-            "example": "400"
+            "example": 400
           },
           "statusCodeText": {
             "type": "string",
