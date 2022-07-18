@@ -9,7 +9,7 @@ import (
 var _ = Describe("Client", func() {
 	var (
 		mockCtrl   *gomock.Controller
-		client     *MockHttpClient
+		client     *MockHTTPClient
 		authClient *Client
 		apiUrl     = "http://foo.bar"
 		tenantID   = "1234"
@@ -17,7 +17,7 @@ var _ = Describe("Client", func() {
 
 	BeforeEach(func() {
 		mockCtrl = gomock.NewController(GinkgoT())
-		client = NewMockHttpClient(mockCtrl)
+		client = NewMockHTTPClient(mockCtrl)
 		authClient = NewClient(
 			client,
 			apiUrl,
@@ -47,20 +47,20 @@ var _ = Describe("Client", func() {
 
 	It("generates headers", func() {
 		headers := authClient.buildHeaders()
-		Expect(headers.Get("Accept")).To(Equal("application/json"))
-		Expect(headers.Get("Content-Type")).To(Equal("application/x-www-form-urlencoded"))
+		Expect(headers["Accept"]).To(Equal("application/json"))
+		Expect(headers["Content-Type"]).To(Equal("application/x-www-form-urlencoded"))
 	})
 
 	Context("When private key is valid", func() {
 		It("generates request body", func() {
 			body, err := authClient.buildParams()
 			Expect(err).ToNot(HaveOccurred())
-			Expect(body.Has("tenant")).To(BeTrue())
-			Expect(body.Has("client_id")).To(BeTrue())
-			Expect(body.Has("scope")).To(BeTrue())
-			Expect(body.Has("client_assertion_type")).To(BeTrue())
-			Expect(body.Has("client_assertion")).To(BeTrue())
-			Expect(body.Has("grant_type")).To(BeTrue())
+			Expect(body["tenant"]).ToNot(BeEmpty())
+			Expect(body["client_id"]).ToNot(BeEmpty())
+			Expect(body["scope"]).ToNot(BeEmpty())
+			Expect(body["client_assertion_type"]).ToNot(BeEmpty())
+			Expect(body["client_assertion"]).ToNot(BeEmpty())
+			Expect(body["grant_type"]).ToNot(BeEmpty())
 		})
 
 		It("generates a signed client assertion", func() {

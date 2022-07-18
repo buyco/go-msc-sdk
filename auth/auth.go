@@ -6,11 +6,9 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/pem"
-	jwt "github.com/form3tech-oss/jwt-go"
+	"github.com/form3tech-oss/jwt-go"
 	"github.com/pkg/errors"
 	"math/rand"
-	"net/http"
-	"net/url"
 	"strconv"
 	"strings"
 	"time"
@@ -37,7 +35,7 @@ func (c customClaims) Valid() error {
 }
 
 type Client struct {
-	httpClient      HttpClient
+	httpClient      HTTPClient
 	url             string
 	certFingerprint string
 	privateKey      string
@@ -46,7 +44,7 @@ type Client struct {
 	tenantId        string
 }
 
-func NewClient(httpClient HttpClient, url, certFingerprint, privateKey, appId, clientId, tenantId string) *Client {
+func NewClient(httpClient HTTPClient, url, certFingerprint, privateKey, appId, clientId, tenantId string) *Client {
 	return &Client{
 		httpClient:      httpClient,
 		url:             url,
@@ -64,18 +62,17 @@ func (a Client) Token(ctx context.Context) (string, time.Duration, error) {
 		return "", 0, err
 	}
 
-	r, err := a.httpClient.Post(
-		a.url+"/"+a.tenantId+authTokenPath,
-		a.buildHeaders(),
-		ctx,
-		form,
-	)
+	r, err := a.httpClient.NewRequest().
+		SetHeaders(a.buildHeaders()).
+		SetContext(ctx).
+		SetFormData(form).
+		Post(a.url + "/" + a.tenantId + authTokenPath)
 	if err != nil {
 		return "", 0, err
 	}
 
 	var content map[string]interface{}
-	err = r.ToJSON(&content)
+	err = r.UnmarshalJson(&content)
 	if err != nil {
 		return "", 0, err
 	}
@@ -111,27 +108,27 @@ func (a Client) randomHex(n int) (string, error) {
 	return hex.EncodeToString(bytes), nil
 }
 
-func (a Client) buildParams() (url.Values, error) {
+func (a Client) buildParams() (map[string]string, error) {
 	signed, err := a.buildClientAssertion()
 	if err != nil {
 		return nil, err
 	}
 
-	return url.Values{
-			"tenant":                []string{a.tenantId},
-			"client_id":             []string{a.clientId},
-			"scope":                 []string{a.appId + "/.default"},
-			"client_assertion_type": []string{clientAssertionType},
-			"client_assertion":      []string{signed},
-			"grant_type":            []string{grantType},
+	return map[string]string{
+			"tenant":                a.tenantId,
+			"client_id":             a.clientId,
+			"scope":                 a.appId + "/.default",
+			"client_assertion_type": clientAssertionType,
+			"client_assertion":      signed,
+			"grant_type":            grantType,
 		},
 		nil
 }
 
-func (a Client) buildHeaders() http.Header {
-	return http.Header{
-		"Accept":       []string{"application/json"},
-		"Content-Type": []string{"application/x-www-form-urlencoded"},
+func (a Client) buildHeaders() map[string]string {
+	return map[string]string{
+		"Accept":       "application/json",
+		"Content-Type": "application/x-www-form-urlencoded",
 	}
 }
 
