@@ -14,9 +14,16 @@
 # JetBrains
 .idea
 
-# Go Binaries and vendors
-vendor
-bin
-
 # Env files
 .env
+
+# Bin dir
+bin
+
+# Vendor dir
+vendor
+
+# Coverfiles
+*.coverprofile
+*.test
+coverage.txt
