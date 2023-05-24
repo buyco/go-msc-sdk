@@ -1,4 +1,4 @@
-DOCKER_BUILD := docker run --rm -u `id -u` -v ${PWD}:/sdk openapitools/openapi-generator-cli:v5.2.1 generate -i sdk/api_files/dcsaorg-DCSA_TNT-1.2.0-resolved.json
+DOCKER_BUILD := docker run --rm -u `id -u` -v ${PWD}:/sdk openapitools/openapi-generator-cli:v6.6.0 generate -i sdk/api_files/msc-dcsa-track-and-trace-2.2.yaml
 GO_CLIENT := -g go -o /sdk/api \
 			--git-repo-id=go-msc-sdk --git-user-id=buyco \
 			--additional-properties=packageName=api \

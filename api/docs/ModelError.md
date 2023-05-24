@@ -6,16 +6,16 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **HttpMethod** | **string** | The HTTP request method type | 
 **RequestUri** | **string** | The request URI. | 
-**Errors** | [**[]ErrorsInner**](ErrorsInner.md) |  | 
+**Errors** | [**[]SubErrorsInner**](SubErrorsInner.md) |  | 
 **StatusCode** | **int32** | The HTTP status code | 
 **StatusCodeText** | **string** | The textual representation of the response status. | 
-**ErrorDateTime** | **string** | The date and time (in ISO 8601 format) the error occured. | 
+**ErrorDateTime** | **string** | The date and time (in ISO 8601 format) the error occurred. | 
 
 ## Methods
 
 ### NewModelError
 
-`func NewModelError(httpMethod string, requestUri string, errors []ErrorsInner, statusCode int32, statusCodeText string, errorDateTime string, ) *ModelError`
+`func NewModelError(httpMethod string, requestUri string, errors []SubErrorsInner, statusCode int32, statusCodeText string, errorDateTime string, ) *ModelError`
 
 NewModelError instantiates a new ModelError object
 This constructor will assign default values to properties that have it defined,
@@ -72,20 +72,20 @@ SetRequestUri sets RequestUri field to given value.
 
 ### GetErrors
 
-`func (o *ModelError) GetErrors() []ErrorsInner`
+`func (o *ModelError) GetErrors() []SubErrorsInner`
 
 GetErrors returns the Errors field if non-nil, zero value otherwise.
 
 ### GetErrorsOk
 
-`func (o *ModelError) GetErrorsOk() (*[]ErrorsInner, bool)`
+`func (o *ModelError) GetErrorsOk() (*[]SubErrorsInner, bool)`
 
 GetErrorsOk returns a tuple with the Errors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetErrors
 
-`func (o *ModelError) SetErrors(v []ErrorsInner)`
+`func (o *ModelError) SetErrors(v []SubErrorsInner)`
 
 SetErrors sets Errors field to given value.
 

@@ -77,6 +77,4 @@ make generate
 ```
 
 ## Documentation
-MSC T&T documentation : [api_files/dcsaorg-DCSA_TNT-1.2.0-resolved.json](api_files/dcsaorg-DCSA_TNT-1.2.0-resolved.json)
-
-
+MSC T&T documentation : [api_files/msc-dcsa-track-and-trace.json](api_files/msc-dcsa-track-and-trace.json)
