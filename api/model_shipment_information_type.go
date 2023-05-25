@@ -20,13 +20,13 @@ type ShipmentInformationType string
 
 // List of shipmentInformationType
 const (
-	BOK ShipmentInformationType = "BOK"
-	BKG ShipmentInformationType = "BKG"
-	SHI ShipmentInformationType = "SHI"
-	VGM ShipmentInformationType = "VGM"
-	SRM ShipmentInformationType = "SRM"
-	TRD ShipmentInformationType = "TRD"
-	ARN ShipmentInformationType = "ARN"
+	SHIPMENTINFORMATIONTYPE_BOK ShipmentInformationType = "BOK"
+	SHIPMENTINFORMATIONTYPE_BKG ShipmentInformationType = "BKG"
+	SHIPMENTINFORMATIONTYPE_SHI ShipmentInformationType = "SHI"
+	SHIPMENTINFORMATIONTYPE_VGM ShipmentInformationType = "VGM"
+	SHIPMENTINFORMATIONTYPE_SRM ShipmentInformationType = "SRM"
+	SHIPMENTINFORMATIONTYPE_TRD ShipmentInformationType = "TRD"
+	SHIPMENTINFORMATIONTYPE_ARN ShipmentInformationType = "ARN"
 )
 
 // All allowed values of ShipmentInformationType enum

@@ -20,11 +20,11 @@ type SealSource string
 
 // List of sealSource
 const (
-	CAR SealSource = "CAR"
-	SHI SealSource = "SHI"
-	PHY SealSource = "PHY"
-	VET SealSource = "VET"
-	CUS SealSource = "CUS"
+	SEALSOURCE_CAR SealSource = "CAR"
+	SEALSOURCE_SHI SealSource = "SHI"
+	SEALSOURCE_PHY SealSource = "PHY"
+	SEALSOURCE_VET SealSource = "VET"
+	SEALSOURCE_CUS SealSource = "CUS"
 )
 
 // All allowed values of SealSource enum
