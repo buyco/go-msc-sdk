@@ -23,7 +23,7 @@ fmt:
 ## lint: Run linter
 lint:
 	@echo "  >  Running staticcheck go linter..."
-	@GOBIN=$(GOBIN) go install honnef.co/go/tools/cmd/staticcheck@latest
+	@GOBIN=$(GOBIN) go install honnef.co/go/tools/cmd/staticcheck@v0.3.3
 	@$(GOBIN)/staticcheck ./auth
 
 ## lint: Run vet
