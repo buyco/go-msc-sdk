@@ -15,15 +15,15 @@ import (
 	"fmt"
 )
 
-// GetEvents200ResponseEventsInner struct for GetEvents200ResponseEventsInner
-type GetEvents200ResponseEventsInner struct {
+// GetEvents200ResponseInner struct for GetEvents200ResponseInner
+type GetEvents200ResponseInner struct {
 	EquipmentEvent *EquipmentEvent
 	ShipmentEvent  *ShipmentEvent
 	TransportEvent *TransportEvent
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
-func (dst *GetEvents200ResponseEventsInner) UnmarshalJSON(data []byte) error {
+func (dst *GetEvents200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into EquipmentEvent
 	err = json.Unmarshal(data, &dst.EquipmentEvent)
@@ -64,11 +64,11 @@ func (dst *GetEvents200ResponseEventsInner) UnmarshalJSON(data []byte) error {
 		dst.TransportEvent = nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in anyOf(GetEvents200ResponseEventsInner)")
+	return fmt.Errorf("data failed to match schemas in anyOf(GetEvents200ResponseInner)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src *GetEvents200ResponseEventsInner) MarshalJSON() ([]byte, error) {
+func (src *GetEvents200ResponseInner) MarshalJSON() ([]byte, error) {
 	if src.EquipmentEvent != nil {
 		return json.Marshal(&src.EquipmentEvent)
 	}
@@ -84,38 +84,38 @@ func (src *GetEvents200ResponseEventsInner) MarshalJSON() ([]byte, error) {
 	return nil, nil // no data in anyOf schemas
 }
 
-type NullableGetEvents200ResponseEventsInner struct {
-	value *GetEvents200ResponseEventsInner
+type NullableGetEvents200ResponseInner struct {
+	value *GetEvents200ResponseInner
 	isSet bool
 }
 
-func (v NullableGetEvents200ResponseEventsInner) Get() *GetEvents200ResponseEventsInner {
+func (v NullableGetEvents200ResponseInner) Get() *GetEvents200ResponseInner {
 	return v.value
 }
 
-func (v *NullableGetEvents200ResponseEventsInner) Set(val *GetEvents200ResponseEventsInner) {
+func (v *NullableGetEvents200ResponseInner) Set(val *GetEvents200ResponseInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGetEvents200ResponseEventsInner) IsSet() bool {
+func (v NullableGetEvents200ResponseInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGetEvents200ResponseEventsInner) Unset() {
+func (v *NullableGetEvents200ResponseInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGetEvents200ResponseEventsInner(val *GetEvents200ResponseEventsInner) *NullableGetEvents200ResponseEventsInner {
-	return &NullableGetEvents200ResponseEventsInner{value: val, isSet: true}
+func NewNullableGetEvents200ResponseInner(val *GetEvents200ResponseInner) *NullableGetEvents200ResponseInner {
+	return &NullableGetEvents200ResponseInner{value: val, isSet: true}
 }
 
-func (v NullableGetEvents200ResponseEventsInner) MarshalJSON() ([]byte, error) {
+func (v NullableGetEvents200ResponseInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGetEvents200ResponseEventsInner) UnmarshalJSON(src []byte) error {
+func (v *NullableGetEvents200ResponseInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

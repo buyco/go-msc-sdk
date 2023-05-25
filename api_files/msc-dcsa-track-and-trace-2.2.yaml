@@ -10,7 +10,7 @@ tags:
 - name: Events
   description: Event operations
 paths:
-  /v2/events:
+  /v2.2/events:
     get:
       tags:
       - Events
@@ -50,17 +50,12 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  events:
-                    type: array
-                    items:
-                      anyOf:
-                      - $ref: '#/components/schemas/transportEvent'
-                      - $ref: '#/components/schemas/shipmentEvent'
-                      - $ref: '#/components/schemas/equipmentEvent'
-                required:
-                  - events
+                type: array
+                items:
+                  anyOf:
+                  - $ref: '#/components/schemas/transportEvent'
+                  - $ref: '#/components/schemas/shipmentEvent'
+                  - $ref: '#/components/schemas/equipmentEvent'
         default:
           description: Unexpected error
           content:

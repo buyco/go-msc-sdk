@@ -4,13 +4,13 @@ All URIs are relative to *https://tst.portal.tech.msc.com/trackandtrace*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetEvents**](EventsApi.md#GetEvents) | **Get** /v2/events | Find events.
+[**GetEvents**](EventsApi.md#GetEvents) | **Get** /v2.2/events | Find events.
 
 
 
 ## GetEvents
 
-> GetEvents200Response GetEvents(ctx).CarrierBookingReference(carrierBookingReference).TransportDocumentReference(transportDocumentReference).EquipmentReference(equipmentReference).Execute()
+> []GetEvents200ResponseInner GetEvents(ctx).CarrierBookingReference(carrierBookingReference).TransportDocumentReference(transportDocumentReference).EquipmentReference(equipmentReference).Execute()
 
 Find events.
 
@@ -40,7 +40,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetEvents``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetEvents`: GetEvents200Response
+    // response from `GetEvents`: []GetEvents200ResponseInner
     fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetEvents`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**GetEvents200Response**](GetEvents200Response.md)
+[**[]GetEvents200ResponseInner**](GetEvents200ResponseInner.md)
 
 ### Authorization
 

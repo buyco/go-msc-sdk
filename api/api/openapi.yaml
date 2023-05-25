@@ -10,7 +10,7 @@ tags:
 - description: Event operations
   name: Events
 paths:
-  /v2/events:
+  /v2.2/events:
     get:
       description: "Find events by Carrier BookingReference, Transport DocumentReference\
         \ (Bill of lading) or Equipment Reference.The endpoint **requires** only 1\
@@ -55,7 +55,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetEvents_200_response'
+                items:
+                  $ref: '#/components/schemas/GetEvents_200_response_inner'
+                type: array
           description: Successful operation
         default:
           content:
@@ -886,24 +888,11 @@ components:
       - message
       - reason
       type: object
-    GetEvents_200_response_events_inner:
+    GetEvents_200_response_inner:
       anyOf:
       - $ref: '#/components/schemas/transportEvent'
       - $ref: '#/components/schemas/shipmentEvent'
       - $ref: '#/components/schemas/equipmentEvent'
-    GetEvents_200_response:
-      example:
-        events:
-        - null
-        - null
-      properties:
-        events:
-          items:
-            $ref: '#/components/schemas/GetEvents_200_response_events_inner'
-          type: array
-      required:
-      - events
-      type: object
     transportEvent_allOf:
       properties:
         documentReferences:

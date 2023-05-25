@@ -77,7 +77,7 @@ All URIs are relative to *https://tst.portal.tech.msc.com/trackandtrace*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*EventsApi* | [**GetEvents**](docs/EventsApi.md#getevents) | **Get** /v2/events | Find events.
+*EventsApi* | [**GetEvents**](docs/EventsApi.md#getevents) | **Get** /v2.2/events | Find events.
 
 
 ## Documentation For Models
@@ -136,8 +136,7 @@ Class | Method | HTTP request | Description
  - [EquipmentEventTypeCode](docs/EquipmentEventTypeCode.md)
  - [FacilityCodeListProvider](docs/FacilityCodeListProvider.md)
  - [FacilityTypeCodeTRN](docs/FacilityTypeCodeTRN.md)
- - [GetEvents200Response](docs/GetEvents200Response.md)
- - [GetEvents200ResponseEventsInner](docs/GetEvents200ResponseEventsInner.md)
+ - [GetEvents200ResponseInner](docs/GetEvents200ResponseInner.md)
  - [InlineResponseDefault](docs/InlineResponseDefault.md)
  - [InlineResponseDefaultAllOf](docs/InlineResponseDefaultAllOf.md)
  - [InlineResponseDefaultAllOf1](docs/InlineResponseDefaultAllOf1.md)
