@@ -17,6 +17,8 @@ paths:
       summary: Find events.
       description: Find events by Carrier BookingReference, Transport DocumentReference (Bill of lading) or Equipment Reference.The endpoint **requires** only 1 of the 3 query parameters to be used.
       operationId: GetEvents
+      security:
+      - bearerAuth: []
       parameters:
       - name: carrierBookingReference
         in: query
@@ -1212,3 +1214,8 @@ components:
       required: false
       schema:
         $ref: '#/components/schemas/equipmentReference'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
