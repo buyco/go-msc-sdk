@@ -59,9 +59,9 @@ docs/EmptyIndicatorCode.md
 docs/EquipmentEvent.md
 docs/EquipmentEventTypeCode.md
 docs/EventsApi.md
+docs/EventsInner.md
 docs/FacilityCodeListProvider.md
 docs/FacilityTypeCodeTRN.md
-docs/GetEvents200ResponseInner.md
 docs/InlineResponseDefault.md
 docs/InlineResponseDefaultAllOf.md
 docs/InlineResponseDefaultAllOf1.md
@@ -175,9 +175,9 @@ model_empty_indicator_code.go
 model_equipment_event.go
 model_equipment_event_type_code.go
 model_error.go
+model_events_inner.go
 model_facility_code_list_provider.go
 model_facility_type_code_trn.go
-model_get_events_200_response_inner.go
 model_inline_response_default.go
 model_inline_response_default_all_of.go
 model_inline_response_default_all_of_1.go

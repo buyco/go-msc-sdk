@@ -31,8 +31,8 @@ type EventsApi interface {
 	GetEvents(ctx context.Context) ApiGetEventsRequest
 
 	// GetEventsExecute executes the request
-	//  @return []GetEvents200ResponseInner
-	GetEventsExecute(r ApiGetEventsRequest) ([]GetEvents200ResponseInner, *http.Response, error)
+	//  @return []EventsInner
+	GetEventsExecute(r ApiGetEventsRequest) ([]EventsInner, *http.Response, error)
 }
 
 // EventsApiService EventsApi service
@@ -64,7 +64,7 @@ func (r ApiGetEventsRequest) EquipmentReference(equipmentReference string) ApiGe
 	return r
 }
 
-func (r ApiGetEventsRequest) Execute() ([]GetEvents200ResponseInner, *http.Response, error) {
+func (r ApiGetEventsRequest) Execute() ([]EventsInner, *http.Response, error) {
 	return r.ApiService.GetEventsExecute(r)
 }
 
@@ -85,13 +85,13 @@ func (a *EventsApiService) GetEvents(ctx context.Context) ApiGetEventsRequest {
 
 // Execute executes the request
 //
-//	@return []GetEvents200ResponseInner
-func (a *EventsApiService) GetEventsExecute(r ApiGetEventsRequest) ([]GetEvents200ResponseInner, *http.Response, error) {
+//	@return []EventsInner
+func (a *EventsApiService) GetEventsExecute(r ApiGetEventsRequest) ([]EventsInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue []GetEvents200ResponseInner
+		localVarReturnValue []EventsInner
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetEvents")

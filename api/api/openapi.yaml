@@ -56,7 +56,8 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/GetEvents_200_response_inner'
+                  $ref: '#/components/schemas/Events_inner'
+                title: Events
                 type: array
           description: Successful operation
         default:
@@ -888,7 +889,7 @@ components:
       - message
       - reason
       type: object
-    GetEvents_200_response_inner:
+    Events_inner:
       anyOf:
       - $ref: '#/components/schemas/transportEvent'
       - $ref: '#/components/schemas/shipmentEvent'

@@ -1,4 +1,4 @@
-# GetEvents200ResponseInner
+# EventsInner
 
 ## Properties
 
@@ -33,625 +33,625 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewGetEvents200ResponseInner
+### NewEventsInner
 
-`func NewGetEvents200ResponseInner(eventCreatedDateTime time.Time, eventType string, eventClassifierCode string, eventDateTime time.Time, transportEventTypeCode TransportEventTypeCode, transportCall TransportCall, shipmentEventTypeCode ShipmentEventTypeCode, documentID string, documentTypeCode DocumentTypeCode, equipmentEventTypeCode EquipmentEventTypeCode, emptyIndicatorCode EmptyIndicatorCode, ) *GetEvents200ResponseInner`
+`func NewEventsInner(eventCreatedDateTime time.Time, eventType string, eventClassifierCode string, eventDateTime time.Time, transportEventTypeCode TransportEventTypeCode, transportCall TransportCall, shipmentEventTypeCode ShipmentEventTypeCode, documentID string, documentTypeCode DocumentTypeCode, equipmentEventTypeCode EquipmentEventTypeCode, emptyIndicatorCode EmptyIndicatorCode, ) *EventsInner`
 
-NewGetEvents200ResponseInner instantiates a new GetEvents200ResponseInner object
+NewEventsInner instantiates a new EventsInner object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewGetEvents200ResponseInnerWithDefaults
+### NewEventsInnerWithDefaults
 
-`func NewGetEvents200ResponseInnerWithDefaults() *GetEvents200ResponseInner`
+`func NewEventsInnerWithDefaults() *EventsInner`
 
-NewGetEvents200ResponseInnerWithDefaults instantiates a new GetEvents200ResponseInner object
+NewEventsInnerWithDefaults instantiates a new EventsInner object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetEventID
 
-`func (o *GetEvents200ResponseInner) GetEventID() string`
+`func (o *EventsInner) GetEventID() string`
 
 GetEventID returns the EventID field if non-nil, zero value otherwise.
 
 ### GetEventIDOk
 
-`func (o *GetEvents200ResponseInner) GetEventIDOk() (*string, bool)`
+`func (o *EventsInner) GetEventIDOk() (*string, bool)`
 
 GetEventIDOk returns a tuple with the EventID field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventID
 
-`func (o *GetEvents200ResponseInner) SetEventID(v string)`
+`func (o *EventsInner) SetEventID(v string)`
 
 SetEventID sets EventID field to given value.
 
 ### HasEventID
 
-`func (o *GetEvents200ResponseInner) HasEventID() bool`
+`func (o *EventsInner) HasEventID() bool`
 
 HasEventID returns a boolean if a field has been set.
 
 ### GetEventCreatedDateTime
 
-`func (o *GetEvents200ResponseInner) GetEventCreatedDateTime() time.Time`
+`func (o *EventsInner) GetEventCreatedDateTime() time.Time`
 
 GetEventCreatedDateTime returns the EventCreatedDateTime field if non-nil, zero value otherwise.
 
 ### GetEventCreatedDateTimeOk
 
-`func (o *GetEvents200ResponseInner) GetEventCreatedDateTimeOk() (*time.Time, bool)`
+`func (o *EventsInner) GetEventCreatedDateTimeOk() (*time.Time, bool)`
 
 GetEventCreatedDateTimeOk returns a tuple with the EventCreatedDateTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventCreatedDateTime
 
-`func (o *GetEvents200ResponseInner) SetEventCreatedDateTime(v time.Time)`
+`func (o *EventsInner) SetEventCreatedDateTime(v time.Time)`
 
 SetEventCreatedDateTime sets EventCreatedDateTime field to given value.
 
 
 ### GetEventType
 
-`func (o *GetEvents200ResponseInner) GetEventType() string`
+`func (o *EventsInner) GetEventType() string`
 
 GetEventType returns the EventType field if non-nil, zero value otherwise.
 
 ### GetEventTypeOk
 
-`func (o *GetEvents200ResponseInner) GetEventTypeOk() (*string, bool)`
+`func (o *EventsInner) GetEventTypeOk() (*string, bool)`
 
 GetEventTypeOk returns a tuple with the EventType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventType
 
-`func (o *GetEvents200ResponseInner) SetEventType(v string)`
+`func (o *EventsInner) SetEventType(v string)`
 
 SetEventType sets EventType field to given value.
 
 
 ### GetEventClassifierCode
 
-`func (o *GetEvents200ResponseInner) GetEventClassifierCode() string`
+`func (o *EventsInner) GetEventClassifierCode() string`
 
 GetEventClassifierCode returns the EventClassifierCode field if non-nil, zero value otherwise.
 
 ### GetEventClassifierCodeOk
 
-`func (o *GetEvents200ResponseInner) GetEventClassifierCodeOk() (*string, bool)`
+`func (o *EventsInner) GetEventClassifierCodeOk() (*string, bool)`
 
 GetEventClassifierCodeOk returns a tuple with the EventClassifierCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventClassifierCode
 
-`func (o *GetEvents200ResponseInner) SetEventClassifierCode(v string)`
+`func (o *EventsInner) SetEventClassifierCode(v string)`
 
 SetEventClassifierCode sets EventClassifierCode field to given value.
 
 
 ### GetEventDateTime
 
-`func (o *GetEvents200ResponseInner) GetEventDateTime() time.Time`
+`func (o *EventsInner) GetEventDateTime() time.Time`
 
 GetEventDateTime returns the EventDateTime field if non-nil, zero value otherwise.
 
 ### GetEventDateTimeOk
 
-`func (o *GetEvents200ResponseInner) GetEventDateTimeOk() (*time.Time, bool)`
+`func (o *EventsInner) GetEventDateTimeOk() (*time.Time, bool)`
 
 GetEventDateTimeOk returns a tuple with the EventDateTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventDateTime
 
-`func (o *GetEvents200ResponseInner) SetEventDateTime(v time.Time)`
+`func (o *EventsInner) SetEventDateTime(v time.Time)`
 
 SetEventDateTime sets EventDateTime field to given value.
 
 
 ### GetTransportEventTypeCode
 
-`func (o *GetEvents200ResponseInner) GetTransportEventTypeCode() TransportEventTypeCode`
+`func (o *EventsInner) GetTransportEventTypeCode() TransportEventTypeCode`
 
 GetTransportEventTypeCode returns the TransportEventTypeCode field if non-nil, zero value otherwise.
 
 ### GetTransportEventTypeCodeOk
 
-`func (o *GetEvents200ResponseInner) GetTransportEventTypeCodeOk() (*TransportEventTypeCode, bool)`
+`func (o *EventsInner) GetTransportEventTypeCodeOk() (*TransportEventTypeCode, bool)`
 
 GetTransportEventTypeCodeOk returns a tuple with the TransportEventTypeCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTransportEventTypeCode
 
-`func (o *GetEvents200ResponseInner) SetTransportEventTypeCode(v TransportEventTypeCode)`
+`func (o *EventsInner) SetTransportEventTypeCode(v TransportEventTypeCode)`
 
 SetTransportEventTypeCode sets TransportEventTypeCode field to given value.
 
 
 ### GetDelayReasonCode
 
-`func (o *GetEvents200ResponseInner) GetDelayReasonCode() string`
+`func (o *EventsInner) GetDelayReasonCode() string`
 
 GetDelayReasonCode returns the DelayReasonCode field if non-nil, zero value otherwise.
 
 ### GetDelayReasonCodeOk
 
-`func (o *GetEvents200ResponseInner) GetDelayReasonCodeOk() (*string, bool)`
+`func (o *EventsInner) GetDelayReasonCodeOk() (*string, bool)`
 
 GetDelayReasonCodeOk returns a tuple with the DelayReasonCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDelayReasonCode
 
-`func (o *GetEvents200ResponseInner) SetDelayReasonCode(v string)`
+`func (o *EventsInner) SetDelayReasonCode(v string)`
 
 SetDelayReasonCode sets DelayReasonCode field to given value.
 
 ### HasDelayReasonCode
 
-`func (o *GetEvents200ResponseInner) HasDelayReasonCode() bool`
+`func (o *EventsInner) HasDelayReasonCode() bool`
 
 HasDelayReasonCode returns a boolean if a field has been set.
 
 ### GetVesselScheduleChangeRemark
 
-`func (o *GetEvents200ResponseInner) GetVesselScheduleChangeRemark() string`
+`func (o *EventsInner) GetVesselScheduleChangeRemark() string`
 
 GetVesselScheduleChangeRemark returns the VesselScheduleChangeRemark field if non-nil, zero value otherwise.
 
 ### GetVesselScheduleChangeRemarkOk
 
-`func (o *GetEvents200ResponseInner) GetVesselScheduleChangeRemarkOk() (*string, bool)`
+`func (o *EventsInner) GetVesselScheduleChangeRemarkOk() (*string, bool)`
 
 GetVesselScheduleChangeRemarkOk returns a tuple with the VesselScheduleChangeRemark field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVesselScheduleChangeRemark
 
-`func (o *GetEvents200ResponseInner) SetVesselScheduleChangeRemark(v string)`
+`func (o *EventsInner) SetVesselScheduleChangeRemark(v string)`
 
 SetVesselScheduleChangeRemark sets VesselScheduleChangeRemark field to given value.
 
 ### HasVesselScheduleChangeRemark
 
-`func (o *GetEvents200ResponseInner) HasVesselScheduleChangeRemark() bool`
+`func (o *EventsInner) HasVesselScheduleChangeRemark() bool`
 
 HasVesselScheduleChangeRemark returns a boolean if a field has been set.
 
 ### GetChangeRemark
 
-`func (o *GetEvents200ResponseInner) GetChangeRemark() string`
+`func (o *EventsInner) GetChangeRemark() string`
 
 GetChangeRemark returns the ChangeRemark field if non-nil, zero value otherwise.
 
 ### GetChangeRemarkOk
 
-`func (o *GetEvents200ResponseInner) GetChangeRemarkOk() (*string, bool)`
+`func (o *EventsInner) GetChangeRemarkOk() (*string, bool)`
 
 GetChangeRemarkOk returns a tuple with the ChangeRemark field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetChangeRemark
 
-`func (o *GetEvents200ResponseInner) SetChangeRemark(v string)`
+`func (o *EventsInner) SetChangeRemark(v string)`
 
 SetChangeRemark sets ChangeRemark field to given value.
 
 ### HasChangeRemark
 
-`func (o *GetEvents200ResponseInner) HasChangeRemark() bool`
+`func (o *EventsInner) HasChangeRemark() bool`
 
 HasChangeRemark returns a boolean if a field has been set.
 
 ### GetTransportCallID
 
-`func (o *GetEvents200ResponseInner) GetTransportCallID() string`
+`func (o *EventsInner) GetTransportCallID() string`
 
 GetTransportCallID returns the TransportCallID field if non-nil, zero value otherwise.
 
 ### GetTransportCallIDOk
 
-`func (o *GetEvents200ResponseInner) GetTransportCallIDOk() (*string, bool)`
+`func (o *EventsInner) GetTransportCallIDOk() (*string, bool)`
 
 GetTransportCallIDOk returns a tuple with the TransportCallID field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTransportCallID
 
-`func (o *GetEvents200ResponseInner) SetTransportCallID(v string)`
+`func (o *EventsInner) SetTransportCallID(v string)`
 
 SetTransportCallID sets TransportCallID field to given value.
 
 ### HasTransportCallID
 
-`func (o *GetEvents200ResponseInner) HasTransportCallID() bool`
+`func (o *EventsInner) HasTransportCallID() bool`
 
 HasTransportCallID returns a boolean if a field has been set.
 
 ### GetTransportCall
 
-`func (o *GetEvents200ResponseInner) GetTransportCall() TransportCall`
+`func (o *EventsInner) GetTransportCall() TransportCall`
 
 GetTransportCall returns the TransportCall field if non-nil, zero value otherwise.
 
 ### GetTransportCallOk
 
-`func (o *GetEvents200ResponseInner) GetTransportCallOk() (*TransportCall, bool)`
+`func (o *EventsInner) GetTransportCallOk() (*TransportCall, bool)`
 
 GetTransportCallOk returns a tuple with the TransportCall field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTransportCall
 
-`func (o *GetEvents200ResponseInner) SetTransportCall(v TransportCall)`
+`func (o *EventsInner) SetTransportCall(v TransportCall)`
 
 SetTransportCall sets TransportCall field to given value.
 
 
 ### GetEventTypeCode
 
-`func (o *GetEvents200ResponseInner) GetEventTypeCode() string`
+`func (o *EventsInner) GetEventTypeCode() string`
 
 GetEventTypeCode returns the EventTypeCode field if non-nil, zero value otherwise.
 
 ### GetEventTypeCodeOk
 
-`func (o *GetEvents200ResponseInner) GetEventTypeCodeOk() (*string, bool)`
+`func (o *EventsInner) GetEventTypeCodeOk() (*string, bool)`
 
 GetEventTypeCodeOk returns a tuple with the EventTypeCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventTypeCode
 
-`func (o *GetEvents200ResponseInner) SetEventTypeCode(v string)`
+`func (o *EventsInner) SetEventTypeCode(v string)`
 
 SetEventTypeCode sets EventTypeCode field to given value.
 
 ### HasEventTypeCode
 
-`func (o *GetEvents200ResponseInner) HasEventTypeCode() bool`
+`func (o *EventsInner) HasEventTypeCode() bool`
 
 HasEventTypeCode returns a boolean if a field has been set.
 
 ### GetDocumentReferences
 
-`func (o *GetEvents200ResponseInner) GetDocumentReferences() []DocumentReferencesInner`
+`func (o *EventsInner) GetDocumentReferences() []DocumentReferencesInner`
 
 GetDocumentReferences returns the DocumentReferences field if non-nil, zero value otherwise.
 
 ### GetDocumentReferencesOk
 
-`func (o *GetEvents200ResponseInner) GetDocumentReferencesOk() (*[]DocumentReferencesInner, bool)`
+`func (o *EventsInner) GetDocumentReferencesOk() (*[]DocumentReferencesInner, bool)`
 
 GetDocumentReferencesOk returns a tuple with the DocumentReferences field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDocumentReferences
 
-`func (o *GetEvents200ResponseInner) SetDocumentReferences(v []DocumentReferencesInner)`
+`func (o *EventsInner) SetDocumentReferences(v []DocumentReferencesInner)`
 
 SetDocumentReferences sets DocumentReferences field to given value.
 
 ### HasDocumentReferences
 
-`func (o *GetEvents200ResponseInner) HasDocumentReferences() bool`
+`func (o *EventsInner) HasDocumentReferences() bool`
 
 HasDocumentReferences returns a boolean if a field has been set.
 
 ### GetReferences
 
-`func (o *GetEvents200ResponseInner) GetReferences() []Reference`
+`func (o *EventsInner) GetReferences() []Reference`
 
 GetReferences returns the References field if non-nil, zero value otherwise.
 
 ### GetReferencesOk
 
-`func (o *GetEvents200ResponseInner) GetReferencesOk() (*[]Reference, bool)`
+`func (o *EventsInner) GetReferencesOk() (*[]Reference, bool)`
 
 GetReferencesOk returns a tuple with the References field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReferences
 
-`func (o *GetEvents200ResponseInner) SetReferences(v []Reference)`
+`func (o *EventsInner) SetReferences(v []Reference)`
 
 SetReferences sets References field to given value.
 
 ### HasReferences
 
-`func (o *GetEvents200ResponseInner) HasReferences() bool`
+`func (o *EventsInner) HasReferences() bool`
 
 HasReferences returns a boolean if a field has been set.
 
 ### GetShipmentEventTypeCode
 
-`func (o *GetEvents200ResponseInner) GetShipmentEventTypeCode() ShipmentEventTypeCode`
+`func (o *EventsInner) GetShipmentEventTypeCode() ShipmentEventTypeCode`
 
 GetShipmentEventTypeCode returns the ShipmentEventTypeCode field if non-nil, zero value otherwise.
 
 ### GetShipmentEventTypeCodeOk
 
-`func (o *GetEvents200ResponseInner) GetShipmentEventTypeCodeOk() (*ShipmentEventTypeCode, bool)`
+`func (o *EventsInner) GetShipmentEventTypeCodeOk() (*ShipmentEventTypeCode, bool)`
 
 GetShipmentEventTypeCodeOk returns a tuple with the ShipmentEventTypeCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShipmentEventTypeCode
 
-`func (o *GetEvents200ResponseInner) SetShipmentEventTypeCode(v ShipmentEventTypeCode)`
+`func (o *EventsInner) SetShipmentEventTypeCode(v ShipmentEventTypeCode)`
 
 SetShipmentEventTypeCode sets ShipmentEventTypeCode field to given value.
 
 
 ### GetDocumentID
 
-`func (o *GetEvents200ResponseInner) GetDocumentID() string`
+`func (o *EventsInner) GetDocumentID() string`
 
 GetDocumentID returns the DocumentID field if non-nil, zero value otherwise.
 
 ### GetDocumentIDOk
 
-`func (o *GetEvents200ResponseInner) GetDocumentIDOk() (*string, bool)`
+`func (o *EventsInner) GetDocumentIDOk() (*string, bool)`
 
 GetDocumentIDOk returns a tuple with the DocumentID field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDocumentID
 
-`func (o *GetEvents200ResponseInner) SetDocumentID(v string)`
+`func (o *EventsInner) SetDocumentID(v string)`
 
 SetDocumentID sets DocumentID field to given value.
 
 
 ### GetDocumentTypeCode
 
-`func (o *GetEvents200ResponseInner) GetDocumentTypeCode() DocumentTypeCode`
+`func (o *EventsInner) GetDocumentTypeCode() DocumentTypeCode`
 
 GetDocumentTypeCode returns the DocumentTypeCode field if non-nil, zero value otherwise.
 
 ### GetDocumentTypeCodeOk
 
-`func (o *GetEvents200ResponseInner) GetDocumentTypeCodeOk() (*DocumentTypeCode, bool)`
+`func (o *EventsInner) GetDocumentTypeCodeOk() (*DocumentTypeCode, bool)`
 
 GetDocumentTypeCodeOk returns a tuple with the DocumentTypeCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDocumentTypeCode
 
-`func (o *GetEvents200ResponseInner) SetDocumentTypeCode(v DocumentTypeCode)`
+`func (o *EventsInner) SetDocumentTypeCode(v DocumentTypeCode)`
 
 SetDocumentTypeCode sets DocumentTypeCode field to given value.
 
 
 ### GetShipmentInformationTypeCode
 
-`func (o *GetEvents200ResponseInner) GetShipmentInformationTypeCode() ShipmentInformationType`
+`func (o *EventsInner) GetShipmentInformationTypeCode() ShipmentInformationType`
 
 GetShipmentInformationTypeCode returns the ShipmentInformationTypeCode field if non-nil, zero value otherwise.
 
 ### GetShipmentInformationTypeCodeOk
 
-`func (o *GetEvents200ResponseInner) GetShipmentInformationTypeCodeOk() (*ShipmentInformationType, bool)`
+`func (o *EventsInner) GetShipmentInformationTypeCodeOk() (*ShipmentInformationType, bool)`
 
 GetShipmentInformationTypeCodeOk returns a tuple with the ShipmentInformationTypeCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShipmentInformationTypeCode
 
-`func (o *GetEvents200ResponseInner) SetShipmentInformationTypeCode(v ShipmentInformationType)`
+`func (o *EventsInner) SetShipmentInformationTypeCode(v ShipmentInformationType)`
 
 SetShipmentInformationTypeCode sets ShipmentInformationTypeCode field to given value.
 
 ### HasShipmentInformationTypeCode
 
-`func (o *GetEvents200ResponseInner) HasShipmentInformationTypeCode() bool`
+`func (o *EventsInner) HasShipmentInformationTypeCode() bool`
 
 HasShipmentInformationTypeCode returns a boolean if a field has been set.
 
 ### GetReason
 
-`func (o *GetEvents200ResponseInner) GetReason() string`
+`func (o *EventsInner) GetReason() string`
 
 GetReason returns the Reason field if non-nil, zero value otherwise.
 
 ### GetReasonOk
 
-`func (o *GetEvents200ResponseInner) GetReasonOk() (*string, bool)`
+`func (o *EventsInner) GetReasonOk() (*string, bool)`
 
 GetReasonOk returns a tuple with the Reason field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReason
 
-`func (o *GetEvents200ResponseInner) SetReason(v string)`
+`func (o *EventsInner) SetReason(v string)`
 
 SetReason sets Reason field to given value.
 
 ### HasReason
 
-`func (o *GetEvents200ResponseInner) HasReason() bool`
+`func (o *EventsInner) HasReason() bool`
 
 HasReason returns a boolean if a field has been set.
 
 ### GetShipmentID
 
-`func (o *GetEvents200ResponseInner) GetShipmentID() interface{}`
+`func (o *EventsInner) GetShipmentID() interface{}`
 
 GetShipmentID returns the ShipmentID field if non-nil, zero value otherwise.
 
 ### GetShipmentIDOk
 
-`func (o *GetEvents200ResponseInner) GetShipmentIDOk() (*interface{}, bool)`
+`func (o *EventsInner) GetShipmentIDOk() (*interface{}, bool)`
 
 GetShipmentIDOk returns a tuple with the ShipmentID field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetShipmentID
 
-`func (o *GetEvents200ResponseInner) SetShipmentID(v interface{})`
+`func (o *EventsInner) SetShipmentID(v interface{})`
 
 SetShipmentID sets ShipmentID field to given value.
 
 ### HasShipmentID
 
-`func (o *GetEvents200ResponseInner) HasShipmentID() bool`
+`func (o *EventsInner) HasShipmentID() bool`
 
 HasShipmentID returns a boolean if a field has been set.
 
 ### SetShipmentIDNil
 
-`func (o *GetEvents200ResponseInner) SetShipmentIDNil(b bool)`
+`func (o *EventsInner) SetShipmentIDNil(b bool)`
 
  SetShipmentIDNil sets the value for ShipmentID to be an explicit nil
 
 ### UnsetShipmentID
-`func (o *GetEvents200ResponseInner) UnsetShipmentID()`
+`func (o *EventsInner) UnsetShipmentID()`
 
 UnsetShipmentID ensures that no value is present for ShipmentID, not even an explicit nil
 ### GetEquipmentEventTypeCode
 
-`func (o *GetEvents200ResponseInner) GetEquipmentEventTypeCode() EquipmentEventTypeCode`
+`func (o *EventsInner) GetEquipmentEventTypeCode() EquipmentEventTypeCode`
 
 GetEquipmentEventTypeCode returns the EquipmentEventTypeCode field if non-nil, zero value otherwise.
 
 ### GetEquipmentEventTypeCodeOk
 
-`func (o *GetEvents200ResponseInner) GetEquipmentEventTypeCodeOk() (*EquipmentEventTypeCode, bool)`
+`func (o *EventsInner) GetEquipmentEventTypeCodeOk() (*EquipmentEventTypeCode, bool)`
 
 GetEquipmentEventTypeCodeOk returns a tuple with the EquipmentEventTypeCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEquipmentEventTypeCode
 
-`func (o *GetEvents200ResponseInner) SetEquipmentEventTypeCode(v EquipmentEventTypeCode)`
+`func (o *EventsInner) SetEquipmentEventTypeCode(v EquipmentEventTypeCode)`
 
 SetEquipmentEventTypeCode sets EquipmentEventTypeCode field to given value.
 
 
 ### GetEquipmentReference
 
-`func (o *GetEvents200ResponseInner) GetEquipmentReference() string`
+`func (o *EventsInner) GetEquipmentReference() string`
 
 GetEquipmentReference returns the EquipmentReference field if non-nil, zero value otherwise.
 
 ### GetEquipmentReferenceOk
 
-`func (o *GetEvents200ResponseInner) GetEquipmentReferenceOk() (*string, bool)`
+`func (o *EventsInner) GetEquipmentReferenceOk() (*string, bool)`
 
 GetEquipmentReferenceOk returns a tuple with the EquipmentReference field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEquipmentReference
 
-`func (o *GetEvents200ResponseInner) SetEquipmentReference(v string)`
+`func (o *EventsInner) SetEquipmentReference(v string)`
 
 SetEquipmentReference sets EquipmentReference field to given value.
 
 ### HasEquipmentReference
 
-`func (o *GetEvents200ResponseInner) HasEquipmentReference() bool`
+`func (o *EventsInner) HasEquipmentReference() bool`
 
 HasEquipmentReference returns a boolean if a field has been set.
 
 ### GetISOEquipmentCode
 
-`func (o *GetEvents200ResponseInner) GetISOEquipmentCode() string`
+`func (o *EventsInner) GetISOEquipmentCode() string`
 
 GetISOEquipmentCode returns the ISOEquipmentCode field if non-nil, zero value otherwise.
 
 ### GetISOEquipmentCodeOk
 
-`func (o *GetEvents200ResponseInner) GetISOEquipmentCodeOk() (*string, bool)`
+`func (o *EventsInner) GetISOEquipmentCodeOk() (*string, bool)`
 
 GetISOEquipmentCodeOk returns a tuple with the ISOEquipmentCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetISOEquipmentCode
 
-`func (o *GetEvents200ResponseInner) SetISOEquipmentCode(v string)`
+`func (o *EventsInner) SetISOEquipmentCode(v string)`
 
 SetISOEquipmentCode sets ISOEquipmentCode field to given value.
 
 ### HasISOEquipmentCode
 
-`func (o *GetEvents200ResponseInner) HasISOEquipmentCode() bool`
+`func (o *EventsInner) HasISOEquipmentCode() bool`
 
 HasISOEquipmentCode returns a boolean if a field has been set.
 
 ### GetEmptyIndicatorCode
 
-`func (o *GetEvents200ResponseInner) GetEmptyIndicatorCode() EmptyIndicatorCode`
+`func (o *EventsInner) GetEmptyIndicatorCode() EmptyIndicatorCode`
 
 GetEmptyIndicatorCode returns the EmptyIndicatorCode field if non-nil, zero value otherwise.
 
 ### GetEmptyIndicatorCodeOk
 
-`func (o *GetEvents200ResponseInner) GetEmptyIndicatorCodeOk() (*EmptyIndicatorCode, bool)`
+`func (o *EventsInner) GetEmptyIndicatorCodeOk() (*EmptyIndicatorCode, bool)`
 
 GetEmptyIndicatorCodeOk returns a tuple with the EmptyIndicatorCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmptyIndicatorCode
 
-`func (o *GetEvents200ResponseInner) SetEmptyIndicatorCode(v EmptyIndicatorCode)`
+`func (o *EventsInner) SetEmptyIndicatorCode(v EmptyIndicatorCode)`
 
 SetEmptyIndicatorCode sets EmptyIndicatorCode field to given value.
 
 
 ### GetEventLocation
 
-`func (o *GetEvents200ResponseInner) GetEventLocation() Location`
+`func (o *EventsInner) GetEventLocation() Location`
 
 GetEventLocation returns the EventLocation field if non-nil, zero value otherwise.
 
 ### GetEventLocationOk
 
-`func (o *GetEvents200ResponseInner) GetEventLocationOk() (*Location, bool)`
+`func (o *EventsInner) GetEventLocationOk() (*Location, bool)`
 
 GetEventLocationOk returns a tuple with the EventLocation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEventLocation
 
-`func (o *GetEvents200ResponseInner) SetEventLocation(v Location)`
+`func (o *EventsInner) SetEventLocation(v Location)`
 
 SetEventLocation sets EventLocation field to given value.
 
 ### HasEventLocation
 
-`func (o *GetEvents200ResponseInner) HasEventLocation() bool`
+`func (o *EventsInner) HasEventLocation() bool`
 
 HasEventLocation returns a boolean if a field has been set.
 
 ### GetSeals
 
-`func (o *GetEvents200ResponseInner) GetSeals() []Seal`
+`func (o *EventsInner) GetSeals() []Seal`
 
 GetSeals returns the Seals field if non-nil, zero value otherwise.
 
 ### GetSealsOk
 
-`func (o *GetEvents200ResponseInner) GetSealsOk() (*[]Seal, bool)`
+`func (o *EventsInner) GetSealsOk() (*[]Seal, bool)`
 
 GetSealsOk returns a tuple with the Seals field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeals
 
-`func (o *GetEvents200ResponseInner) SetSeals(v []Seal)`
+`func (o *EventsInner) SetSeals(v []Seal)`
 
 SetSeals sets Seals field to given value.
 
 ### HasSeals
 
-`func (o *GetEvents200ResponseInner) HasSeals() bool`
+`func (o *EventsInner) HasSeals() bool`
 
 HasSeals returns a boolean if a field has been set.
 

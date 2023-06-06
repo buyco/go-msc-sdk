@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## GetEvents
 
-> []GetEvents200ResponseInner GetEvents(ctx).CarrierBookingReference(carrierBookingReference).TransportDocumentReference(transportDocumentReference).EquipmentReference(equipmentReference).Execute()
+> []EventsInner GetEvents(ctx).CarrierBookingReference(carrierBookingReference).TransportDocumentReference(transportDocumentReference).EquipmentReference(equipmentReference).Execute()
 
 Find events.
 
@@ -40,7 +40,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetEvents``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetEvents`: []GetEvents200ResponseInner
+    // response from `GetEvents`: []EventsInner
     fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetEvents`: %v\n", resp)
 }
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]GetEvents200ResponseInner**](GetEvents200ResponseInner.md)
+[**[]EventsInner**](EventsInner.md)
 
 ### Authorization
 
