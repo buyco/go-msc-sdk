@@ -148,13 +148,18 @@ func (a *EventsApiService) GetEventsExecute(r ApiGetEventsRequest) ([]EventsInne
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
+	localVarHTTPResponseContentType := localVarHTTPResponse.Header.Get("Content-Type")
+	if localVarHTTPResponseContentType == "" {
+		localVarHTTPResponseContentType = "application/json"
+	}
+
 	if localVarHTTPResponse.StatusCode >= 300 {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
 		var v InlineResponseDefault
-		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponseContentType)
 		if err != nil {
 			newErr.error = err.Error()
 			return localVarReturnValue, localVarHTTPResponse, newErr
@@ -164,7 +169,7 @@ func (a *EventsApiService) GetEventsExecute(r ApiGetEventsRequest) ([]EventsInne
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponseContentType)
 	if err != nil {
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
