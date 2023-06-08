@@ -896,6 +896,12 @@ components:
       - $ref: '#/components/schemas/transportEvent'
       - $ref: '#/components/schemas/shipmentEvent'
       - $ref: '#/components/schemas/equipmentEvent'
+      discriminator:
+        mapping:
+          SHIPMENT: '#/components/schemas/shipmentEvent'
+          TRANSPORT: '#/components/schemas/transportEvent'
+          EQUIPMENT: '#/components/schemas/equipmentEvent'
+        propertyName: eventType
     transportEvent_allOf:
       properties:
         documentReferences:
