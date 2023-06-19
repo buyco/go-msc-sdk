@@ -4,24 +4,28 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EventID** | **string** | The unique identifier for the Equipment Event ID/Transport Event ID/Shipment Event ID. | 
+**EventID** | Pointer to **string** | The unique identifier for the event (the message - not the source).  &lt;b&gt;NB&lt;/b&gt;&amp;#58; This field should be considered Metadata  | [optional] 
+**EventCreatedDateTime** | **time.Time** | The timestamp of when the event was created.  &lt;b&gt;NB&lt;/b&gt;&amp;#58; This field should be considered Metadata  | 
 **EventType** | **string** |  | 
-**EventDateTime** | **time.Time** | The local date and time, where the event took place, in ISO 8601 format. | 
-**EventClassifierCode** | **string** | Code for the event classifier, either PLN, ACT or EST. | 
-**EventTypeCode** | **string** | Unique identifier for Event Type Code. | 
-**EquipmentReference** | Pointer to **string** | The unique identifier for the equipment, which should follow the BIC ISO Container Identification Number where possible. If a container is not yet assigned to a shipment, the interface cannot return any information when an equipment reference is given as input. If a container is assigned to an (active) shipment, the interface returns information on the active shipment. | [optional] 
-**FacilityTypeCode** | **string** | The code to identify the specific type of facility. | 
-**UNLocationCode** | **string** | The UN Location Code identifies a location in the sense of a city/a town/a village, being the smaller administrative area existing as defined by the competent national authority in each country. | 
-**FacilityCode** | **string** | The code used for identifying the specific facility. | 
-**OtherFacility** | Pointer to **string** | An alternative way to capture the facility when no standardized DCSA facility code can be found. | [optional] 
-**EmptyIndicatorCode** | **string** | Code to denote whether the equipment is empty or laden. | 
-**Description** | Pointer to **string** | Description for Event Type Code. | [optional] 
+**EventClassifierCode** | **string** | Code for the event classifier can be - PLN (Planned) - ACT (Actual) - EST (Estimated)  | 
+**EventDateTime** | **time.Time** | The local date and time, where the event took place or when the event will take place, in ISO 8601 format. | 
+**EquipmentEventTypeCode** | [**EquipmentEventTypeCode**](EquipmentEventTypeCode.md) |  | 
+**EquipmentReference** | Pointer to **string** | The unique identifier for the equipment, which should follow the BIC ISO Container Identification Number where possible. According to ISO 6346, a container identification code consists of a 4-letter prefix and a 7-digit number (composed of a 3-letter owner code, a category identifier, a serial number, and a check-digit). If a container does not comply with ISO 6346, it is suggested to follow Recommendation #2 “Container with non-ISO identification” from SMDG.  | [optional] 
+**ISOEquipmentCode** | Pointer to **string** | Unique code for the different equipment size/type used for transporting commodities. The code is a concatenation of ISO Equipment Size Code and ISO Equipment Type Code A and follows the ISO 6346 standard. | [optional] 
+**EmptyIndicatorCode** | [**EmptyIndicatorCode**](EmptyIndicatorCode.md) |  | 
+**EventLocation** | Pointer to [**Location**](Location.md) |  | [optional] 
+**TransportCallID** | Pointer to **string** |  | [optional] 
+**TransportCall** | Pointer to [**TransportCall**](TransportCall.md) |  | [optional] 
+**DocumentReferences** | Pointer to [**[]DocumentReferencesInner**](DocumentReferencesInner.md) | An optional list of key-value (documentReferenceType-documentReferenceValue) pairs representing links to objects relevant to the event. The &lt;b&gt;documentReferenceType&lt;/b&gt;-field is used to describe where the &lt;b&gt;documentReferenceValue&lt;/b&gt;-field is pointing to. | [optional] 
+**References** | Pointer to [**[]Reference**](Reference.md) |  | [optional] 
+**Seals** | Pointer to [**[]Seal**](Seal.md) |  | [optional] 
+**EventTypeCode** | Pointer to **string** | Unique identifier for Event Type Code, for transport events this is either - LOAD (Loaded) - DISC (Discharged) - GTIN (Gated in) - GTOT (Gated out) - STUF (Stuffed) - STRP (Stripped)  Deprecated - use equipmentEventTypeCode instead  | [optional] 
 
 ## Methods
 
 ### NewEquipmentEvent
 
-`func NewEquipmentEvent(eventID string, eventType string, eventDateTime time.Time, eventClassifierCode string, eventTypeCode string, facilityTypeCode string, uNLocationCode string, facilityCode string, emptyIndicatorCode string, ) *EquipmentEvent`
+`func NewEquipmentEvent(eventCreatedDateTime time.Time, eventType string, eventClassifierCode string, eventDateTime time.Time, equipmentEventTypeCode EquipmentEventTypeCode, emptyIndicatorCode EmptyIndicatorCode, ) *EquipmentEvent`
 
 NewEquipmentEvent instantiates a new EquipmentEvent object
 This constructor will assign default values to properties that have it defined,
@@ -55,6 +59,31 @@ and a boolean to check if the value has been set.
 
 SetEventID sets EventID field to given value.
 
+### HasEventID
+
+`func (o *EquipmentEvent) HasEventID() bool`
+
+HasEventID returns a boolean if a field has been set.
+
+### GetEventCreatedDateTime
+
+`func (o *EquipmentEvent) GetEventCreatedDateTime() time.Time`
+
+GetEventCreatedDateTime returns the EventCreatedDateTime field if non-nil, zero value otherwise.
+
+### GetEventCreatedDateTimeOk
+
+`func (o *EquipmentEvent) GetEventCreatedDateTimeOk() (*time.Time, bool)`
+
+GetEventCreatedDateTimeOk returns a tuple with the EventCreatedDateTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventCreatedDateTime
+
+`func (o *EquipmentEvent) SetEventCreatedDateTime(v time.Time)`
+
+SetEventCreatedDateTime sets EventCreatedDateTime field to given value.
+
 
 ### GetEventType
 
@@ -74,26 +103,6 @@ and a boolean to check if the value has been set.
 `func (o *EquipmentEvent) SetEventType(v string)`
 
 SetEventType sets EventType field to given value.
-
-
-### GetEventDateTime
-
-`func (o *EquipmentEvent) GetEventDateTime() time.Time`
-
-GetEventDateTime returns the EventDateTime field if non-nil, zero value otherwise.
-
-### GetEventDateTimeOk
-
-`func (o *EquipmentEvent) GetEventDateTimeOk() (*time.Time, bool)`
-
-GetEventDateTimeOk returns a tuple with the EventDateTime field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEventDateTime
-
-`func (o *EquipmentEvent) SetEventDateTime(v time.Time)`
-
-SetEventDateTime sets EventDateTime field to given value.
 
 
 ### GetEventClassifierCode
@@ -116,24 +125,44 @@ and a boolean to check if the value has been set.
 SetEventClassifierCode sets EventClassifierCode field to given value.
 
 
-### GetEventTypeCode
+### GetEventDateTime
 
-`func (o *EquipmentEvent) GetEventTypeCode() string`
+`func (o *EquipmentEvent) GetEventDateTime() time.Time`
 
-GetEventTypeCode returns the EventTypeCode field if non-nil, zero value otherwise.
+GetEventDateTime returns the EventDateTime field if non-nil, zero value otherwise.
 
-### GetEventTypeCodeOk
+### GetEventDateTimeOk
 
-`func (o *EquipmentEvent) GetEventTypeCodeOk() (*string, bool)`
+`func (o *EquipmentEvent) GetEventDateTimeOk() (*time.Time, bool)`
 
-GetEventTypeCodeOk returns a tuple with the EventTypeCode field if it's non-nil, zero value otherwise
+GetEventDateTimeOk returns a tuple with the EventDateTime field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetEventTypeCode
+### SetEventDateTime
 
-`func (o *EquipmentEvent) SetEventTypeCode(v string)`
+`func (o *EquipmentEvent) SetEventDateTime(v time.Time)`
 
-SetEventTypeCode sets EventTypeCode field to given value.
+SetEventDateTime sets EventDateTime field to given value.
+
+
+### GetEquipmentEventTypeCode
+
+`func (o *EquipmentEvent) GetEquipmentEventTypeCode() EquipmentEventTypeCode`
+
+GetEquipmentEventTypeCode returns the EquipmentEventTypeCode field if non-nil, zero value otherwise.
+
+### GetEquipmentEventTypeCodeOk
+
+`func (o *EquipmentEvent) GetEquipmentEventTypeCodeOk() (*EquipmentEventTypeCode, bool)`
+
+GetEquipmentEventTypeCodeOk returns a tuple with the EquipmentEventTypeCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEquipmentEventTypeCode
+
+`func (o *EquipmentEvent) SetEquipmentEventTypeCode(v EquipmentEventTypeCode)`
+
+SetEquipmentEventTypeCode sets EquipmentEventTypeCode field to given value.
 
 
 ### GetEquipmentReference
@@ -161,135 +190,225 @@ SetEquipmentReference sets EquipmentReference field to given value.
 
 HasEquipmentReference returns a boolean if a field has been set.
 
-### GetFacilityTypeCode
+### GetISOEquipmentCode
 
-`func (o *EquipmentEvent) GetFacilityTypeCode() string`
+`func (o *EquipmentEvent) GetISOEquipmentCode() string`
 
-GetFacilityTypeCode returns the FacilityTypeCode field if non-nil, zero value otherwise.
+GetISOEquipmentCode returns the ISOEquipmentCode field if non-nil, zero value otherwise.
 
-### GetFacilityTypeCodeOk
+### GetISOEquipmentCodeOk
 
-`func (o *EquipmentEvent) GetFacilityTypeCodeOk() (*string, bool)`
+`func (o *EquipmentEvent) GetISOEquipmentCodeOk() (*string, bool)`
 
-GetFacilityTypeCodeOk returns a tuple with the FacilityTypeCode field if it's non-nil, zero value otherwise
+GetISOEquipmentCodeOk returns a tuple with the ISOEquipmentCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFacilityTypeCode
+### SetISOEquipmentCode
 
-`func (o *EquipmentEvent) SetFacilityTypeCode(v string)`
+`func (o *EquipmentEvent) SetISOEquipmentCode(v string)`
 
-SetFacilityTypeCode sets FacilityTypeCode field to given value.
+SetISOEquipmentCode sets ISOEquipmentCode field to given value.
 
+### HasISOEquipmentCode
 
-### GetUNLocationCode
+`func (o *EquipmentEvent) HasISOEquipmentCode() bool`
 
-`func (o *EquipmentEvent) GetUNLocationCode() string`
-
-GetUNLocationCode returns the UNLocationCode field if non-nil, zero value otherwise.
-
-### GetUNLocationCodeOk
-
-`func (o *EquipmentEvent) GetUNLocationCodeOk() (*string, bool)`
-
-GetUNLocationCodeOk returns a tuple with the UNLocationCode field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUNLocationCode
-
-`func (o *EquipmentEvent) SetUNLocationCode(v string)`
-
-SetUNLocationCode sets UNLocationCode field to given value.
-
-
-### GetFacilityCode
-
-`func (o *EquipmentEvent) GetFacilityCode() string`
-
-GetFacilityCode returns the FacilityCode field if non-nil, zero value otherwise.
-
-### GetFacilityCodeOk
-
-`func (o *EquipmentEvent) GetFacilityCodeOk() (*string, bool)`
-
-GetFacilityCodeOk returns a tuple with the FacilityCode field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFacilityCode
-
-`func (o *EquipmentEvent) SetFacilityCode(v string)`
-
-SetFacilityCode sets FacilityCode field to given value.
-
-
-### GetOtherFacility
-
-`func (o *EquipmentEvent) GetOtherFacility() string`
-
-GetOtherFacility returns the OtherFacility field if non-nil, zero value otherwise.
-
-### GetOtherFacilityOk
-
-`func (o *EquipmentEvent) GetOtherFacilityOk() (*string, bool)`
-
-GetOtherFacilityOk returns a tuple with the OtherFacility field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOtherFacility
-
-`func (o *EquipmentEvent) SetOtherFacility(v string)`
-
-SetOtherFacility sets OtherFacility field to given value.
-
-### HasOtherFacility
-
-`func (o *EquipmentEvent) HasOtherFacility() bool`
-
-HasOtherFacility returns a boolean if a field has been set.
+HasISOEquipmentCode returns a boolean if a field has been set.
 
 ### GetEmptyIndicatorCode
 
-`func (o *EquipmentEvent) GetEmptyIndicatorCode() string`
+`func (o *EquipmentEvent) GetEmptyIndicatorCode() EmptyIndicatorCode`
 
 GetEmptyIndicatorCode returns the EmptyIndicatorCode field if non-nil, zero value otherwise.
 
 ### GetEmptyIndicatorCodeOk
 
-`func (o *EquipmentEvent) GetEmptyIndicatorCodeOk() (*string, bool)`
+`func (o *EquipmentEvent) GetEmptyIndicatorCodeOk() (*EmptyIndicatorCode, bool)`
 
 GetEmptyIndicatorCodeOk returns a tuple with the EmptyIndicatorCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmptyIndicatorCode
 
-`func (o *EquipmentEvent) SetEmptyIndicatorCode(v string)`
+`func (o *EquipmentEvent) SetEmptyIndicatorCode(v EmptyIndicatorCode)`
 
 SetEmptyIndicatorCode sets EmptyIndicatorCode field to given value.
 
 
-### GetDescription
+### GetEventLocation
 
-`func (o *EquipmentEvent) GetDescription() string`
+`func (o *EquipmentEvent) GetEventLocation() Location`
 
-GetDescription returns the Description field if non-nil, zero value otherwise.
+GetEventLocation returns the EventLocation field if non-nil, zero value otherwise.
 
-### GetDescriptionOk
+### GetEventLocationOk
 
-`func (o *EquipmentEvent) GetDescriptionOk() (*string, bool)`
+`func (o *EquipmentEvent) GetEventLocationOk() (*Location, bool)`
 
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+GetEventLocationOk returns a tuple with the EventLocation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDescription
+### SetEventLocation
 
-`func (o *EquipmentEvent) SetDescription(v string)`
+`func (o *EquipmentEvent) SetEventLocation(v Location)`
 
-SetDescription sets Description field to given value.
+SetEventLocation sets EventLocation field to given value.
 
-### HasDescription
+### HasEventLocation
 
-`func (o *EquipmentEvent) HasDescription() bool`
+`func (o *EquipmentEvent) HasEventLocation() bool`
 
-HasDescription returns a boolean if a field has been set.
+HasEventLocation returns a boolean if a field has been set.
+
+### GetTransportCallID
+
+`func (o *EquipmentEvent) GetTransportCallID() string`
+
+GetTransportCallID returns the TransportCallID field if non-nil, zero value otherwise.
+
+### GetTransportCallIDOk
+
+`func (o *EquipmentEvent) GetTransportCallIDOk() (*string, bool)`
+
+GetTransportCallIDOk returns a tuple with the TransportCallID field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTransportCallID
+
+`func (o *EquipmentEvent) SetTransportCallID(v string)`
+
+SetTransportCallID sets TransportCallID field to given value.
+
+### HasTransportCallID
+
+`func (o *EquipmentEvent) HasTransportCallID() bool`
+
+HasTransportCallID returns a boolean if a field has been set.
+
+### GetTransportCall
+
+`func (o *EquipmentEvent) GetTransportCall() TransportCall`
+
+GetTransportCall returns the TransportCall field if non-nil, zero value otherwise.
+
+### GetTransportCallOk
+
+`func (o *EquipmentEvent) GetTransportCallOk() (*TransportCall, bool)`
+
+GetTransportCallOk returns a tuple with the TransportCall field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTransportCall
+
+`func (o *EquipmentEvent) SetTransportCall(v TransportCall)`
+
+SetTransportCall sets TransportCall field to given value.
+
+### HasTransportCall
+
+`func (o *EquipmentEvent) HasTransportCall() bool`
+
+HasTransportCall returns a boolean if a field has been set.
+
+### GetDocumentReferences
+
+`func (o *EquipmentEvent) GetDocumentReferences() []DocumentReferencesInner`
+
+GetDocumentReferences returns the DocumentReferences field if non-nil, zero value otherwise.
+
+### GetDocumentReferencesOk
+
+`func (o *EquipmentEvent) GetDocumentReferencesOk() (*[]DocumentReferencesInner, bool)`
+
+GetDocumentReferencesOk returns a tuple with the DocumentReferences field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDocumentReferences
+
+`func (o *EquipmentEvent) SetDocumentReferences(v []DocumentReferencesInner)`
+
+SetDocumentReferences sets DocumentReferences field to given value.
+
+### HasDocumentReferences
+
+`func (o *EquipmentEvent) HasDocumentReferences() bool`
+
+HasDocumentReferences returns a boolean if a field has been set.
+
+### GetReferences
+
+`func (o *EquipmentEvent) GetReferences() []Reference`
+
+GetReferences returns the References field if non-nil, zero value otherwise.
+
+### GetReferencesOk
+
+`func (o *EquipmentEvent) GetReferencesOk() (*[]Reference, bool)`
+
+GetReferencesOk returns a tuple with the References field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReferences
+
+`func (o *EquipmentEvent) SetReferences(v []Reference)`
+
+SetReferences sets References field to given value.
+
+### HasReferences
+
+`func (o *EquipmentEvent) HasReferences() bool`
+
+HasReferences returns a boolean if a field has been set.
+
+### GetSeals
+
+`func (o *EquipmentEvent) GetSeals() []Seal`
+
+GetSeals returns the Seals field if non-nil, zero value otherwise.
+
+### GetSealsOk
+
+`func (o *EquipmentEvent) GetSealsOk() (*[]Seal, bool)`
+
+GetSealsOk returns a tuple with the Seals field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSeals
+
+`func (o *EquipmentEvent) SetSeals(v []Seal)`
+
+SetSeals sets Seals field to given value.
+
+### HasSeals
+
+`func (o *EquipmentEvent) HasSeals() bool`
+
+HasSeals returns a boolean if a field has been set.
+
+### GetEventTypeCode
+
+`func (o *EquipmentEvent) GetEventTypeCode() string`
+
+GetEventTypeCode returns the EventTypeCode field if non-nil, zero value otherwise.
+
+### GetEventTypeCodeOk
+
+`func (o *EquipmentEvent) GetEventTypeCodeOk() (*string, bool)`
+
+GetEventTypeCodeOk returns a tuple with the EventTypeCode field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventTypeCode
+
+`func (o *EquipmentEvent) SetEventTypeCode(v string)`
+
+SetEventTypeCode sets EventTypeCode field to given value.
+
+### HasEventTypeCode
+
+`func (o *EquipmentEvent) HasEventTypeCode() bool`
+
+HasEventTypeCode returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

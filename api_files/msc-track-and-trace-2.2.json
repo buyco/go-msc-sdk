@@ -1,0 +1,477 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Provides equipment actual milestones along with Estimated Time of Arrival following DCSA standards",
+    "version": "2.2",
+    "title": "DCSA Track and Trace"
+  },
+  "host": "tst.portal.tech.msc.com",
+  "basePath": "/trackandtrace/v2.2",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/events": {
+      "get": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "Find events by Carrier BookingReference, Transport DocumentReference (Bill of lading) or Equipment Reference.The endpoint **requires** only 1 of the 3 query parameters to be used.",
+        "operationId": "GET /events",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "carrierBookingReference",
+            "in": "query",
+            "description": "A set of unique characters provided by carrier to identify a booking.\r\nSpecifying this filter will only return events related to this particular carrierBookingReference.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "transportDocumentReference",
+            "in": "query",
+            "description": "A unique number reference allocated by the shipping line to the transport document and \r\nthe main number used for the tracking of the status of the shipment.\r\nSpecifying this filter will only return events related to this particular transportDocumentReference",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "equipmentReference",
+            "in": "query",
+            "description": "Will filter by the unique identifier for the equipment, which should follow the BIC ISO Container Identification Number where possible.\r\nSpecifying this filter will only return events related to this particular equipmentReference",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#/definitions/events"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Vessel": {
+      "type": "object",
+      "required": [
+        "vesselIMONumber"
+      ],
+      "properties": {
+        "vesselIMONumber": {
+          "type": "string",
+          "example": "",
+          "description": "The unique reference for a registered Vessel from IMO"
+        },
+        "vesselName": {
+          "type": "string",
+          "example": "",
+          "description": ""
+        },
+        "vesselFlag": {
+          "type": "string",
+          "example": "",
+          "description": "ISO 3166 two-letter country code"
+        },
+        "vesselCallSignNumber": {
+          "type": "string",
+          "example": "",
+          "description": "A unique alphanumeric identity that belongs to the vessel and is assigned by ITU"
+        },
+        "vesselOperatorCarrierCode": {
+          "type": "string",
+          "example": "",
+          "description": "SCAC code, the NMFTA identifier for the Carrier (\"MEDU\" is MSC) or SMDG code"
+        },
+        "vesselOperatorCarrierCodeList": {
+          "type": "string",
+          "example": "",
+          "description": "List of Values: NMFTA, SMDG"
+        }
+      },
+      "description": "The transport event entity is a specialization of the event entity to support specification of data that only applies to a transport event."
+    },
+    "TransportEvent": {
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "example": "SHIPMENT",
+          "description": "The Event Type of the object."
+        },
+        "transportEventTypeCode": {
+          "type": "string",
+          "description": ""
+        },
+        "transportCall": {
+          "$ref": "#/definitions/TransportCall"
+        },
+        "documentReferences": {
+          "type": "array",
+          "description": "DocumentReferences",
+          "items": {
+            "$ref": "#/definitions/DocumentReference"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {}
+      ],
+      "description": "The transport event entity is a specialization of the event entity to support specification of data that only applies to a transport event."
+    },
+    "ShipmentEvent": {
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "example": "SHIPMENT",
+          "description": "The Event Type of the object."
+        },
+        "shipmentEventTypeCode": {
+          "type": "string",
+          "example": "",
+          "description": ""
+        },
+        "documentID": {
+          "type": "string",
+          "example": "",
+          "description": ""
+        },
+        "documentTypeCode": {
+          "type": "string",
+          "example": "",
+          "description": ""
+        },
+        "reason": {
+          "type": "string",
+          "example": "",
+          "description": ""
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {}
+      ],
+      "description": "Abstract class for event.\r\nhttps://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0#/event."
+    },
+    "EquipmentEvent": {
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "example": "SHIPMENT",
+          "description": "The Event Type of the object."
+        },
+        "equipmentEventTypeCode": {
+          "type": "string",
+          "example": "",
+          "description": "Unique identifier for Event Type Code for Equipment."
+        },
+        "equipmentReference": {
+          "type": "string",
+          "example": "APZU4812090",
+          "description": "The unique identifier for the equipment, which should follow the BIC ISO Container Identification Number where possible.\r\nIf a container is not yet assigned to a shipment, the interface cannot return any information when an equipment reference is given as input.\r\nIf a container is assigned to an (active) shipment, the interface returns information on the active shipment."
+        },
+        "ISOEquipmentCode": {
+          "type": "string",
+          "example": "",
+          "description": ""
+        },
+        "emptyIndicatorCode": {
+          "type": "string",
+          "example": "Empty",
+          "description": "Code to denote whether the equipment is empty or laden."
+        },
+        "transportCall": {
+          "$ref": "#/definitions/TransportCall"
+        },
+        "documentReferences": {
+          "type": "array",
+          "description": "DocumentReferences",
+          "items": {
+            "$ref": "#/definitions/DocumentReference"
+          }
+        },
+        "eventLocation": {
+          "$ref": "#/definitions/EventLocation"
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/Event"
+        },
+        {}
+      ],
+      "description": "The transport event entity is a specialization of the event entity to support specification of data that only applies to a transport event."
+    },
+    "EventType": {
+      "type": "array",
+      "description": "List of eventType.\n\nPossible values are\n- SHIPMENT (Shipment events)\n- TRANSPORT (Transport events)\n- EQUIPMENT (Equipment events)\n",
+      "items": {
+        "type": "string",
+        "enum": [
+          "SHIPMENT",
+          "TRANSPORT",
+          "EQUIPMENT"
+        ]
+      },
+      "example": [
+        "TRANSPORT",
+        "EQUIPMENT"
+      ]
+    },
+    "EventLocation": {
+      "type": "object",
+      "properties": {
+        "locationName": {
+          "type": "string",
+          "description": "Location name : ActivityLocationName EME prop"
+        },
+        "latitude": {
+          "type": "string",
+          "description": "Latitude"
+        },
+        "longitude": {
+          "type": "string",
+          "description": "Longtitude"
+        },
+        "unLocationCode": {
+          "type": "string",
+          "description": "Unlocation code"
+        },
+        "facilityCode": {
+          "type": "string",
+          "description": "Facility code"
+        },
+        "facilityCodeListProvider": {
+          "type": "string",
+          "description": "Facility Code List provider string"
+        },
+        "address": {
+          "type": "string",
+          "description": "Event Address"
+        }
+      }
+    },
+    "TransportCall": {
+      "type": "object",
+      "required": [
+        "modeOfTransport",
+        "transportCallID"
+      ],
+      "properties": {
+        "transportCallID": {
+          "type": "string",
+          "example": "",
+          "description": "The unique identifier for a transport call (PK)"
+        },
+        "carrierServiceCode": {
+          "type": "string",
+          "example": "",
+          "description": "The code of the service for which the schedule details are published.\r\nThe vessel operator-specific identifier of the Voyage.\r\nIn case there are multiple voyages the export voyage is chosen."
+        },
+        "exportVoyageNumber": {
+          "type": "string",
+          "example": "",
+          "description": "The vessel operator-specific identifier of the export Voyage."
+        },
+        "importVoyageNumber": {
+          "type": "string",
+          "example": "",
+          "description": "The vessel operator-specific identifier of the import Voyage."
+        },
+        "unLocationCode": {
+          "type": "string",
+          "example": "",
+          "description": "Transport operator's key that uniquely identifies each individual call. \r\nThis key is essential to distinguish between two separate calls at the same location within one voyage"
+        },
+        "facilityCode": {
+          "type": "string",
+          "example": "AEAUHADT",
+          "description": "The code used for identifying the specific facility."
+        },
+        "facilityCodeListProvider": {
+          "type": "string",
+          "example": "",
+          "description": "The provider used for identifying the facility Code. List of Values: SMDG, BIC"
+        },
+        "facilityTypeCode": {
+          "type": "string",
+          "example": "",
+          "description": "The code to identify the specific type of facility."
+        },
+        "otherFacility": {
+          "type": "string",
+          "example": "Depot location or address",
+          "description": "An alternative way to capture the facility when no standardized DCSA facility code can be found."
+        },
+        "modeOfTransport": {
+          "type": "string",
+          "example": "",
+          "description": "A code specifying a type of transport mode."
+        },
+        "vessel": {
+          "$ref": "#/definitions/Vessel"
+        }
+      },
+      "description": "The transport event entity is a specialization of the event entity to support specification of data that only applies to a transport event."
+    },
+    "Event": {
+      "type": "object",
+      "required": [
+        "eventClassifierCode",
+        "eventCreatedDateTime",
+        "eventDateTime",
+        "eventId",
+        "eventType"
+      ],
+      "discriminator": "eventType",
+      "properties": {
+        "eventType": {
+          "type": "string",
+          "example": "EQUIPMENT, SHIPMENT, TRANSPORT",
+          "description": "The Event Type of the object."
+        },
+        "description": {
+          "type": "string",
+          "description": "The event entity is described as a generalization of all the specific event categories. \r\nAn event always takes place in relation to a shipment and can additionally be linked to a transport or an equipment."
+        },
+        "eventId": {
+          "type": "string",
+          "example": "1",
+          "description": "The unique identifier for the Equipment Event ID/Transport Event ID/Shipment Event ID."
+        },
+        "eventDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-11-12T07:41:00+08:30",
+          "description": "The local date and time, where the event took place, in ISO 8601 format.\r\nBy default, it will be already serialized using the expected format: \"2019-11-12T07:41:00+08:30\" \r\nhttps://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0#/eventDateTime."
+        },
+        "eventClassifierCode": {
+          "type": "string",
+          "example": "EST",
+          "description": "Code for the event classifier can be\r\n<br>ACT (Actual)</br><br>EST(Estimated)</br><br>Enum:<br>[ ACT (Actual), EST (Estimate) ]</br>"
+        },
+        "eventCreatedDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-11-12T07:41:00+08:30",
+          "description": "The local date and time, where the event took place, in ISO 8601 format.\r\nBy default, it will be already serialized using the expected format: \"2019-11-12T07:41:00+08:30\" \r\nhttps://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0#/eventDateTime."
+        }
+      },
+      "description": "Abstract class for event.\r\nhttps://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0#/event"
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "httpMethod": {
+          "type": "string",
+          "description": "Gets or sets the HTTP method."
+        },
+        "requestUri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Gets or sets the request URI."
+        },
+        "errors": {
+          "type": "array",
+          "description": "Gets or sets the errors.",
+          "items": {
+            "$ref": "#/definitions/errors"
+          }
+        },
+        "statusCode": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Gets or sets the status code."
+        },
+        "statusCodeText": {
+          "type": "string",
+          "description": "Gets or sets the status code text."
+        },
+        "errorDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Gets or sets the error date time."
+        }
+      },
+      "description": "see: https://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0#/error."
+    },
+    "DocumentReference": {
+      "type": "object",
+      "properties": {
+        "documentReferenceType": {
+          "type": "string",
+          "example": "BKG",
+          "description": "Describes where the documentReferenceValue is pointing to\r\n<br>Enum:<br>[ BKG (Booking), TRD (TransportDocument - Bill of Lading) ]</br>"
+        },
+        "documentReferenceValue": {
+          "type": "string",
+          "example": "123e4567-e89b-12d3-a456-426614174000",
+          "description": "The value of the identifier the documentReferenceType is describing"
+        }
+      },
+      "description": "An optional list of key-value (documentReferenceType-documentReferenceValue) pairs representing links to objects relevant to the event.\r\nThe documentReferenceType-field is used to describe where the documentReferenceValue-field is pointing to."
+    },
+    "errors": {
+      "type": "object",
+      "properties": {
+        "reason": {
+          "type": "string",
+          "description": "Gets or sets the reason."
+        },
+        "message": {
+          "type": "string",
+          "description": "Gets or sets the message."
+        }
+      },
+      "description": "see: https://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0#/error."
+    },
+    "events": {
+      "type": "object",
+      "required": [
+        "events"
+      ],
+      "properties": {
+        "events": {
+          "type": "array",
+          "description": "Gets or sets the events.",
+          "items": {
+            "description": "Abstract class for event.\r\nhttps://app.swaggerhub.com/apis/dcsaorg/DCSA_TNT/2.2.0#/event"
+          }
+        }
+      },
+      "description": "List of events for shipment journey."
+    }
+  }
+}
