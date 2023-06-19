@@ -1,4 +1,4 @@
-module github.com/buyco/go-msc-sdk
+module github.com/buyco/go-msc-sdk/v2
 
 go 1.17
 
