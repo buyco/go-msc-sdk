@@ -777,7 +777,6 @@ components:
         is meant to stay on until the shipment equipment reaches its final destination.
       required:
       - sealNumber
-      - sealType
       type: object
     sealNumber:
       description: Identifies a seal affixed to the container.
@@ -797,6 +796,8 @@ components:
       - PHY
       - VET
       - CUS
+      - TER
+      - VNT
       example: CUS
       type: string
     sealType:

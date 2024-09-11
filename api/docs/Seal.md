@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **SealNumber** | **string** | Identifies a seal affixed to the container. | 
 **SealSource** | Pointer to [**SealSource**](SealSource.md) |  | [optional] 
-**SealType** | [**SealType**](SealType.md) |  | 
+**SealType** | Pointer to [**SealType**](SealType.md) |  | [optional] 
 
 ## Methods
 
 ### NewSeal
 
-`func NewSeal(sealNumber string, sealType SealType, ) *Seal`
+`func NewSeal(sealNumber string, ) *Seal`
 
 NewSeal instantiates a new Seal object
 This constructor will assign default values to properties that have it defined,
@@ -91,6 +91,11 @@ and a boolean to check if the value has been set.
 
 SetSealType sets SealType field to given value.
 
+### HasSealType
+
+`func (o *Seal) HasSealType() bool`
+
+HasSealType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
