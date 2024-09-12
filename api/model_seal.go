@@ -22,17 +22,16 @@ type Seal struct {
 	// Identifies a seal affixed to the container.
 	SealNumber string      `json:"sealNumber"`
 	SealSource *SealSource `json:"sealSource,omitempty"`
-	SealType   SealType    `json:"sealType"`
+	SealType   *SealType   `json:"sealType,omitempty"`
 }
 
 // NewSeal instantiates a new Seal object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSeal(sealNumber string, sealType SealType) *Seal {
+func NewSeal(sealNumber string) *Seal {
 	this := Seal{}
 	this.SealNumber = sealNumber
-	this.SealType = sealType
 	return &this
 }
 
@@ -100,28 +99,36 @@ func (o *Seal) SetSealSource(v SealSource) {
 	o.SealSource = &v
 }
 
-// GetSealType returns the SealType field value
+// GetSealType returns the SealType field value if set, zero value otherwise.
 func (o *Seal) GetSealType() SealType {
-	if o == nil {
+	if o == nil || IsNil(o.SealType) {
 		var ret SealType
 		return ret
 	}
-
-	return o.SealType
+	return *o.SealType
 }
 
-// GetSealTypeOk returns a tuple with the SealType field value
+// GetSealTypeOk returns a tuple with the SealType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Seal) GetSealTypeOk() (*SealType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SealType) {
 		return nil, false
 	}
-	return &o.SealType, true
+	return o.SealType, true
 }
 
-// SetSealType sets field value
+// HasSealType returns a boolean if a field has been set.
+func (o *Seal) HasSealType() bool {
+	if o != nil && !IsNil(o.SealType) {
+		return true
+	}
+
+	return false
+}
+
+// SetSealType gets a reference to the given SealType and assigns it to the SealType field.
 func (o *Seal) SetSealType(v SealType) {
-	o.SealType = v
+	o.SealType = &v
 }
 
 func (o Seal) MarshalJSON() ([]byte, error) {
@@ -138,7 +145,9 @@ func (o Seal) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SealSource) {
 		toSerialize["sealSource"] = o.SealSource
 	}
-	toSerialize["sealType"] = o.SealType
+	if !IsNil(o.SealType) {
+		toSerialize["sealType"] = o.SealType
+	}
 	return toSerialize, nil
 }
 

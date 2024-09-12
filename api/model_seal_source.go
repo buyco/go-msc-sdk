@@ -25,6 +25,8 @@ const (
 	SEALSOURCE_PHY SealSource = "PHY"
 	SEALSOURCE_VET SealSource = "VET"
 	SEALSOURCE_CUS SealSource = "CUS"
+	SEALSOURCE_TER SealSource = "TER"
+	SEALSOURCE_VNT SealSource = "VNT"
 )
 
 // All allowed values of SealSource enum
@@ -34,6 +36,8 @@ var AllowedSealSourceEnumValues = []SealSource{
 	"PHY",
 	"VET",
 	"CUS",
+	"TER",
+	"VNT",
 }
 
 func (v *SealSource) UnmarshalJSON(src []byte) error {
