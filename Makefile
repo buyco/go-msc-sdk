@@ -34,7 +34,7 @@ vet:
 go-test:
 	@echo "  >  Run tests..."
 	@GOBIN=$(GOBIN) go install github.com/onsi/ginkgo/v2/ginkgo@v2.22
-	@$(GOBIN)/ginkgo -r --randomize-all --randomize-suites --race --trace --cover -gcflags="-l" 1>&2
+	@$(GOBIN)/ginkgo -r --randomize-all --randomize-suites --race --trace -coverprofile=cover.out -gcflags="-l" 1>&2
 
 go-get:
 	@echo "  >  Checking if there is any missing dependencies..."
