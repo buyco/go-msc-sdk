@@ -23,7 +23,7 @@ fmt:
 ## lint: Run linter
 lint:
 	@echo "  >  Running staticcheck go linter..."
-	@GOBIN=$(GOBIN) go install honnef.co/go/tools/cmd/staticcheck@v0.3.3
+	@GOBIN=$(GOBIN) go install honnef.co/go/tools/cmd/staticcheck@v0.6.0
 	@$(GOBIN)/staticcheck ./auth
 
 ## lint: Run vet
@@ -33,8 +33,8 @@ vet:
 
 go-test:
 	@echo "  >  Run tests..."
-	@GOBIN=$(GOBIN) go install github.com/onsi/ginkgo/ginkgo@v1.16.4
-	@$(GOBIN)/ginkgo -r --randomizeAllSpecs --randomizeSuites --race --trace --cover -gcflags="-l" 1>&2
+	@GOBIN=$(GOBIN) go install github.com/onsi/ginkgo/v2/ginkgo@v2.22
+	@$(GOBIN)/ginkgo -r --randomize-all --randomize-suites --race --trace --cover -gcflags="-l" 1>&2
 
 go-get:
 	@echo "  >  Checking if there is any missing dependencies..."

@@ -2,16 +2,17 @@ package auth
 
 import (
 	"context"
+	"crypto/rand"
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/pem"
-	"github.com/form3tech-oss/jwt-go"
-	"github.com/pkg/errors"
-	"math/rand"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/form3tech-oss/jwt-go"
+	"github.com/pkg/errors"
 )
 
 const (
