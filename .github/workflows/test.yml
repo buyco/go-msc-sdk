@@ -31,13 +31,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      ## run go vet
-      - name: Run linter
-        run: make vet
-
       ## run linter
       - name: Run linter
-        run: make lint
+        run: |
+          make vet
+          make lint
 
       ## run tests
       - name: Run tests
