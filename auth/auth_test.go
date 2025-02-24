@@ -1,15 +1,16 @@
 package auth
 
 import (
+	mockhttp "github.com/buyco/go-msc-sdk/v2/auth/http/mock"
 	"github.com/golang/mock/gomock"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("Client", func() {
 	var (
 		mockCtrl   *gomock.Controller
-		client     *MockHTTPClient
+		client     *mockhttp.MockHTTPClient
 		authClient *Client
 		apiUrl     = "http://foo.bar"
 		tenantID   = "1234"
@@ -17,7 +18,7 @@ var _ = Describe("Client", func() {
 
 	BeforeEach(func() {
 		mockCtrl = gomock.NewController(GinkgoT())
-		client = NewMockHTTPClient(mockCtrl)
+		client = mockhttp.NewMockHTTPClient(mockCtrl)
 		authClient = NewClient(
 			client,
 			apiUrl,

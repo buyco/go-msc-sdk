@@ -2,16 +2,18 @@ package auth
 
 import (
 	"context"
+	"crypto/rand"
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/pem"
-	"github.com/form3tech-oss/jwt-go"
-	"github.com/pkg/errors"
-	"math/rand"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/buyco/go-msc-sdk/v2/auth/http"
+	"github.com/form3tech-oss/jwt-go"
+	"github.com/pkg/errors"
 )
 
 const (
@@ -35,7 +37,7 @@ func (c customClaims) Valid() error {
 }
 
 type Client struct {
-	httpClient      HTTPClient
+	httpClient      http.HTTPClient
 	url             string
 	certFingerprint string
 	privateKey      string
@@ -44,7 +46,7 @@ type Client struct {
 	tenantId        string
 }
 
-func NewClient(httpClient HTTPClient, url, certFingerprint, privateKey, appId, clientId, tenantId string) *Client {
+func NewClient(httpClient http.HTTPClient, url, certFingerprint, privateKey, appId, clientId, tenantId string) *Client {
 	return &Client{
 		httpClient:      httpClient,
 		url:             url,
