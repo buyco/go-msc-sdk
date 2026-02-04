@@ -24,6 +24,7 @@ type TransportEvent struct {
 	EventID *string `json:"eventID,omitempty"`
 	// The timestamp of when the event was created.  <b>NB</b>&#58; This field should be considered Metadata
 	EventCreatedDateTime time.Time `json:"eventCreatedDateTime"`
+	Description          *string   `json:"description,omitempty"`
 	EventType            string    `json:"eventType"`
 	// Code for the event classifier can be - ACT (Actual) - PLN (Planned) - EST (Estimated)
 	EventClassifierCode string `json:"eventClassifierCode"`
@@ -124,6 +125,38 @@ func (o *TransportEvent) GetEventCreatedDateTimeOk() (*time.Time, bool) {
 // SetEventCreatedDateTime sets field value
 func (o *TransportEvent) SetEventCreatedDateTime(v time.Time) {
 	o.EventCreatedDateTime = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *TransportEvent) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TransportEvent) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *TransportEvent) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *TransportEvent) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetEventType returns the EventType field value
@@ -490,6 +523,9 @@ func (o TransportEvent) ToMap() (map[string]interface{}, error) {
 		toSerialize["eventID"] = o.EventID
 	}
 	toSerialize["eventCreatedDateTime"] = o.EventCreatedDateTime
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	toSerialize["eventType"] = o.EventType
 	toSerialize["eventClassifierCode"] = o.EventClassifierCode
 	toSerialize["eventDateTime"] = o.EventDateTime

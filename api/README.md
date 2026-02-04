@@ -102,7 +102,6 @@ Class | Method | HTTP request | Description
  - [BaseEquipmentEventAllOf7](docs/BaseEquipmentEventAllOf7.md)
  - [BaseEvent](docs/BaseEvent.md)
  - [BaseEventAllOf](docs/BaseEventAllOf.md)
- - [BaseEventAllOf1](docs/BaseEventAllOf1.md)
  - [BaseEventBody](docs/BaseEventBody.md)
  - [BaseEventBodyAllOf](docs/BaseEventBodyAllOf.md)
  - [BaseEventBodyAllOf1](docs/BaseEventBodyAllOf1.md)

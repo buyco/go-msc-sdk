@@ -12,6 +12,7 @@ package api
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // checks if the BaseEventAllOf type satisfies the MappedNullable interface at compile time
@@ -21,6 +22,9 @@ var _ MappedNullable = &BaseEventAllOf{}
 type BaseEventAllOf struct {
 	// The unique identifier for the event (the message - not the source).  <b>NB</b>&#58; This field should be considered Metadata
 	EventID *string `json:"eventID,omitempty"`
+	// The timestamp of when the event was created.  <b>NB</b>&#58; This field should be considered Metadata
+	EventCreatedDateTime *time.Time `json:"eventCreatedDateTime,omitempty"`
+	Description          *string    `json:"description,omitempty"`
 }
 
 // NewBaseEventAllOf instantiates a new BaseEventAllOf object
@@ -72,6 +76,70 @@ func (o *BaseEventAllOf) SetEventID(v string) {
 	o.EventID = &v
 }
 
+// GetEventCreatedDateTime returns the EventCreatedDateTime field value if set, zero value otherwise.
+func (o *BaseEventAllOf) GetEventCreatedDateTime() time.Time {
+	if o == nil || IsNil(o.EventCreatedDateTime) {
+		var ret time.Time
+		return ret
+	}
+	return *o.EventCreatedDateTime
+}
+
+// GetEventCreatedDateTimeOk returns a tuple with the EventCreatedDateTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseEventAllOf) GetEventCreatedDateTimeOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EventCreatedDateTime) {
+		return nil, false
+	}
+	return o.EventCreatedDateTime, true
+}
+
+// HasEventCreatedDateTime returns a boolean if a field has been set.
+func (o *BaseEventAllOf) HasEventCreatedDateTime() bool {
+	if o != nil && !IsNil(o.EventCreatedDateTime) {
+		return true
+	}
+
+	return false
+}
+
+// SetEventCreatedDateTime gets a reference to the given time.Time and assigns it to the EventCreatedDateTime field.
+func (o *BaseEventAllOf) SetEventCreatedDateTime(v time.Time) {
+	o.EventCreatedDateTime = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *BaseEventAllOf) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BaseEventAllOf) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *BaseEventAllOf) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *BaseEventAllOf) SetDescription(v string) {
+	o.Description = &v
+}
+
 func (o BaseEventAllOf) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -84,6 +152,12 @@ func (o BaseEventAllOf) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.EventID) {
 		toSerialize["eventID"] = o.EventID
+	}
+	if !IsNil(o.EventCreatedDateTime) {
+		toSerialize["eventCreatedDateTime"] = o.EventCreatedDateTime
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
 	}
 	return toSerialize, nil
 }
