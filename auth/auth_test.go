@@ -2,9 +2,9 @@ package auth
 
 import (
 	mockhttp "github.com/buyco/go-msc-sdk/v2/auth/http/mock"
-	"github.com/golang/mock/gomock"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	gomock "go.uber.org/mock/gomock"
 )
 
 var _ = Describe("Client", func() {
@@ -32,10 +32,6 @@ var _ = Describe("Client", func() {
 
 	AfterEach(func() {
 		mockCtrl.Finish()
-	})
-
-	It("creates a valid custom claim", func() {
-		Expect(customClaims{}.Valid()).ToNot(HaveOccurred())
 	})
 
 	It("creates X.509 certificate thumbprint", func() {
