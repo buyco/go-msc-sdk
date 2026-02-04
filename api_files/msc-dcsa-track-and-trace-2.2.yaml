@@ -269,10 +269,10 @@ components:
         properties:
           eventID:
             $ref: '#/components/schemas/eventID'
-      - type: object
-        properties:
           eventCreatedDateTime:
             $ref: '#/components/schemas/eventCreatedDateTime'
+          description:
+            type: string
       - $ref: '#/components/schemas/baseEventBody'
     eventID:
       type: string

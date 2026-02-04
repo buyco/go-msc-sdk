@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EventID** | Pointer to **string** | The unique identifier for the event (the message - not the source).  &lt;b&gt;NB&lt;/b&gt;&amp;#58; This field should be considered Metadata  | [optional] 
 **EventCreatedDateTime** | **time.Time** | The timestamp of when the event was created.  &lt;b&gt;NB&lt;/b&gt;&amp;#58; This field should be considered Metadata  | 
+**Description** | Pointer to **string** |  | [optional] 
 **EventType** | **string** | The Event Type of the object - to be used as a discriminator.  &lt;b&gt;NB&lt;/b&gt;&amp;#58; This field should be considered Metadata  | 
 **EventClassifierCode** | **string** | Code for the event classifier. Values can vary depending on eventType  | 
 **EventDateTime** | **time.Time** | The local date and time, where the event took place or when the event will take place, in ISO 8601 format. | 
@@ -73,6 +74,31 @@ and a boolean to check if the value has been set.
 
 SetEventCreatedDateTime sets EventCreatedDateTime field to given value.
 
+
+### GetDescription
+
+`func (o *BaseEvent) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *BaseEvent) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *BaseEvent) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *BaseEvent) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetEventType
 
