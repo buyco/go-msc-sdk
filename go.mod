@@ -3,9 +3,9 @@ module github.com/buyco/go-msc-sdk/v2
 go 1.25.5
 
 require (
-	github.com/form3tech-oss/jwt-go v3.2.2+incompatible
+	github.com/golang-jwt/jwt/v5 v5.3.1
 	github.com/onsi/ginkgo/v2 v2.28.1
-	github.com/onsi/gomega v1.39.0
+	github.com/onsi/gomega v1.39.1
 	go.uber.org/mock v0.6.0
 )
 
@@ -14,7 +14,7 @@ require (
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20260115054156-294ebfa9ad83 // indirect
+	github.com/google/pprof v0.0.0-20260202012954-cb029daf43ef // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/mod v0.32.0 // indirect
 	golang.org/x/net v0.49.0 // indirect

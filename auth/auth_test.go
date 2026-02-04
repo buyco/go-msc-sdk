@@ -34,10 +34,6 @@ var _ = Describe("Client", func() {
 		mockCtrl.Finish()
 	})
 
-	It("creates a valid custom claim", func() {
-		Expect(customClaims{}.Valid()).ToNot(HaveOccurred())
-	})
-
 	It("creates X.509 certificate thumbprint", func() {
 		Expect(authClient.x5t("foo:bar")).ToNot(HaveLen(0))
 	})

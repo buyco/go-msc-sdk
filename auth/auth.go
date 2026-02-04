@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/buyco/go-msc-sdk/v2/auth/http"
-	"github.com/form3tech-oss/jwt-go"
+	"github.com/golang-jwt/jwt/v5"
 )
 
 const (
@@ -21,20 +21,6 @@ const (
 	clientAssertionType = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
 	grantType           = "client_credentials"
 )
-
-type customClaims struct {
-	Audience  string `json:"aud,omitempty"`
-	ExpiresAt int64  `json:"exp,omitempty"`
-	Id        string `json:"jti,omitempty"`
-	IssuedAt  int64  `json:"iat,omitempty"`
-	Issuer    string `json:"iss,omitempty"`
-	NotBefore int64  `json:"nbf,omitempty"`
-	Subject   string `json:"sub,omitempty"`
-}
-
-func (c customClaims) Valid() error {
-	return nil
-}
 
 type Client struct {
 	httpClient      http.HTTPClient
@@ -149,14 +135,14 @@ func (a Client) buildClientAssertion() (string, error) {
 		return "", err
 	}
 
-	now := time.Now().Unix()
-	claims := customClaims{
+	now := time.Now()
+	claims := jwt.RegisteredClaims{
 		Subject:   a.clientId,
 		Issuer:    a.clientId,
-		Id:        randID,
-		NotBefore: now,
-		Audience:  a.url + "/" + a.tenantId + authTokenPath,
-		ExpiresAt: now + 3600,
+		ID:        randID,
+		NotBefore: jwt.NewNumericDate(now),
+		Audience:  jwt.ClaimStrings{a.url + "/" + a.tenantId + authTokenPath},
+		ExpiresAt: jwt.NewNumericDate(now.Add(time.Hour)),
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
