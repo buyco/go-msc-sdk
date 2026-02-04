@@ -2,9 +2,9 @@ package auth
 
 import (
 	mockhttp "github.com/buyco/go-msc-sdk/v2/auth/http/mock"
-	"github.com/golang/mock/gomock"
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
+	gomock "go.uber.org/mock/gomock"
 )
 
 var _ = Describe("Client", func() {
