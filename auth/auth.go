@@ -7,13 +7,13 @@ import (
 	"encoding/base64"
 	"encoding/hex"
 	"encoding/pem"
+	"errors"
 	"strconv"
 	"strings"
 	"time"
 
 	"github.com/buyco/go-msc-sdk/v2/auth/http"
 	"github.com/form3tech-oss/jwt-go"
-	"github.com/pkg/errors"
 )
 
 const (

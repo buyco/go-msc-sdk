@@ -6,7 +6,6 @@ require (
 	github.com/form3tech-oss/jwt-go v3.2.2+incompatible
 	github.com/onsi/ginkgo/v2 v2.28.1
 	github.com/onsi/gomega v1.39.0
-	github.com/pkg/errors v0.9.1
 	go.uber.org/mock v0.6.0
 )
 
