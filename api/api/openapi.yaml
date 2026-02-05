@@ -297,7 +297,6 @@ components:
     baseEvent:
       allOf:
       - $ref: '#/components/schemas/baseEvent_allOf'
-      - $ref: '#/components/schemas/baseEvent_allOf_1'
       - $ref: '#/components/schemas/baseEventBody'
       required:
       - eventCreatedDateTime
@@ -930,10 +929,6 @@ components:
           example: 3cecb101-7a1a-43a4-9d62-e88a131651e2
           format: uuid
           type: string
-      type: object
-      example: null
-    baseEvent_allOf_1:
-      properties:
         eventCreatedDateTime:
           description: |
             The timestamp of when the event was created.
@@ -941,6 +936,8 @@ components:
             <b>NB</b>&#58; This field should be considered Metadata
           example: 2021-01-09T14:12:56+01:00
           format: date-time
+          type: string
+        description:
           type: string
       type: object
       example: null

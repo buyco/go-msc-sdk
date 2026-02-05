@@ -26,7 +26,6 @@ docs/BaseEquipmentEventAllOf6.md
 docs/BaseEquipmentEventAllOf7.md
 docs/BaseEvent.md
 docs/BaseEventAllOf.md
-docs/BaseEventAllOf1.md
 docs/BaseEventBody.md
 docs/BaseEventBodyAllOf.md
 docs/BaseEventBodyAllOf1.md
@@ -142,7 +141,6 @@ model_base_equipment_event_all_of_6.go
 model_base_equipment_event_all_of_7.go
 model_base_event.go
 model_base_event_all_of.go
-model_base_event_all_of_1.go
 model_base_event_body.go
 model_base_event_body_all_of.go
 model_base_event_body_all_of_1.go

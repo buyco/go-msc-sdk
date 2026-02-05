@@ -5,6 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **EventID** | Pointer to **string** | The unique identifier for the event (the message - not the source).  &lt;b&gt;NB&lt;/b&gt;&amp;#58; This field should be considered Metadata  | [optional] 
+**EventCreatedDateTime** | Pointer to **time.Time** | The timestamp of when the event was created.  &lt;b&gt;NB&lt;/b&gt;&amp;#58; This field should be considered Metadata  | [optional] 
+**Description** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -49,6 +51,56 @@ SetEventID sets EventID field to given value.
 `func (o *BaseEventAllOf) HasEventID() bool`
 
 HasEventID returns a boolean if a field has been set.
+
+### GetEventCreatedDateTime
+
+`func (o *BaseEventAllOf) GetEventCreatedDateTime() time.Time`
+
+GetEventCreatedDateTime returns the EventCreatedDateTime field if non-nil, zero value otherwise.
+
+### GetEventCreatedDateTimeOk
+
+`func (o *BaseEventAllOf) GetEventCreatedDateTimeOk() (*time.Time, bool)`
+
+GetEventCreatedDateTimeOk returns a tuple with the EventCreatedDateTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEventCreatedDateTime
+
+`func (o *BaseEventAllOf) SetEventCreatedDateTime(v time.Time)`
+
+SetEventCreatedDateTime sets EventCreatedDateTime field to given value.
+
+### HasEventCreatedDateTime
+
+`func (o *BaseEventAllOf) HasEventCreatedDateTime() bool`
+
+HasEventCreatedDateTime returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *BaseEventAllOf) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *BaseEventAllOf) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *BaseEventAllOf) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *BaseEventAllOf) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
