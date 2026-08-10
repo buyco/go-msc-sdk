@@ -10,8 +10,8 @@ type HTTPClient interface {
 
 type HTTPRequest interface {
 	SetFormData(data map[string]string) HTTPRequest
-	SetResult(result interface{}) HTTPRequest
-	SetError(error interface{}) HTTPRequest
+	SetResult(result any) HTTPRequest
+	SetError(error any) HTTPRequest
 	SetHeaders(hdrs map[string]string) HTTPRequest
 	Get(url string) (HTTPResponse, error)
 	Post(url string) (HTTPResponse, error)
@@ -24,9 +24,9 @@ type HTTPRequest interface {
 type HTTPResponse interface {
 	IsSuccess() bool
 	IsError() bool
-	Result() interface{}
-	Error() interface{}
-	UnmarshalJson(v interface{}) error
+	Result() any
+	Error() any
+	UnmarshalJson(v any) error
 	Bytes() []byte
 	String() string
 	ToString() (string, error)
