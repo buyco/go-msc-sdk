@@ -59,7 +59,7 @@ func (a Client) Token(ctx context.Context) (string, time.Duration, error) {
 		return "", 0, err
 	}
 
-	var content map[string]interface{}
+	var content map[string]any
 	err = r.UnmarshalJson(&content)
 	if err != nil {
 		return "", 0, err
